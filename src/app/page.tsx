@@ -1,6 +1,8 @@
 function HomePage() {
   return (
-    <div>HomePage</div>
+    <div className="flex w-full items-center justify-center">
+      <h1>HomePage</h1>
+    </div>
   )
 }
 
