@@ -1,9 +1,16 @@
-function HomePage() {
-  return (
-    <div className="flex w-full items-center justify-center">
-      <h1>HomePage</h1>
-    </div>
-  )
-}
+"use client";
 
-export default HomePage
+function Page() {
+  return (
+    <div className="flex min-h-screen flex-col items-center justify-between p-24">
+      <h1 className="text-4xl font-bold">Agro Red</h1>
+      <div>
+        <p className="text-lg">Welcome to Agro Red!</p>
+        <p className="text-lg">Your one-stop solution for agricultural needs.</p>
+      </div>
+    </div>
+
+  )
+
+}
+export default Page
