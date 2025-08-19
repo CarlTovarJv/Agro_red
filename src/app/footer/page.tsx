@@ -3,7 +3,7 @@ function Footer() {
     <footer className="bg-black text-white px-6 md:px-16 py-10">
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
         <div>
-          <h3 className="font-bold mb-4">Company</h3>
+          <h3 className="font-bold">Company</h3>
           <ul className="space-y-2 text-sm">
             <li><a href="#">Privacy Policy</a></li>
             <li><a href="#">Why AgroRed?</a></li>
