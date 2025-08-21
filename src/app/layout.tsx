@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import Header from './components/header';
+import Nav from './components/nav';
 import AppMui from "@/theme/AppMui";
 
 const geistSans = Geist({
@@ -24,10 +26,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+    <html lang="es">
+      <body
+        className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         <AppMui>
-          {children}
+          <Header />
+          <Nav active="Seasonal products"  />
+        {children}
         </AppMui>
       </body>
     </html>

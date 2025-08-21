@@ -9,8 +9,7 @@ function Page() {
         <p className="text-lg">Your one-stop solution for agricultural needs.</p>
       </div>
     </div>
-
-  )
-
+)
 }
 export default Page
+
