@@ -2,7 +2,7 @@
 
 function Page() {
   return (
-    <div className="flex min-h-screen flex-col items-center justify-between p-24">
+    <div className="flex min-h-screen flex-col items-center justify-between p-25">
       <h1 className="text-4xl font-bold">Agro Red</h1>
       <div>
         <p className="text-lg">Welcome to Agro Red!</p>
