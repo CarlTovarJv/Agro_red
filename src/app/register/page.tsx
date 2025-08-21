@@ -32,31 +32,27 @@ export default function RegisterPage() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-green-100 to-green-300 px-4">
-      {/* Card del formulario */}
-      <div className="relative max-w-md w-full bg-white shadow-xl rounded-2xl p-6">
-        relative max-w-sm w-full bg-white shadow-xl rounded-2xl p-6
-        {/*Logo*/}
-        <div className="absolute top-4 left-4">
-          <img
-            src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png"
+    <div className="min-h-screen flex items-center justify-center  from-white-100  px-4">
+
+      <div className="relative max-w-md w-full bg-white shadow-xl rounded-2xl p-9">
+        <div className="flex flex-col items-start mb-0 -ml-10">
+            <img
+            src="./agrored img.svg"
             alt="Logo"
-            className="w-15 h-15"
-          />
+            className="w-38 h-38"
+            />
         </div>
+              <h1 className="text-3xl font-bold text-center w-full -mt-10 mb-8">Create account</h1> 
 
-        
-        <h1 className="text-3xl font-bold mb-6 text-center">Create account</h1>
-
-        
         <form onSubmit={handleSubmit} className="grid grid-cols-2 gap-4">
           <div>
+        
             <label className="text-sm font-medium">Name</label>
             <input
               name="name"
               value={form.name}
               onChange={handleChange}
-              className="w-full border p-2 rounded-lg focus:ring-2 focus:ring-green-500"
+              className="w-full border p-1 rounded-lg focus:ring-2 focus:ring-green-500"
             />
           </div>
           <div>
@@ -65,7 +61,7 @@ export default function RegisterPage() {
               name="lastName"
               value={form.lastName}
               onChange={handleChange}
-              className="w-full border p-2 rounded-lg focus:ring-2 focus:ring-green-500"
+              className="w-full border p-1 rounded-lg focus:ring-2 focus:ring-green-500"
             />
           </div>
 
@@ -75,7 +71,7 @@ export default function RegisterPage() {
               name="dui"
               value={form.dui}
               onChange={handleChange}
-              className="w-full border p-2 rounded-lg focus:ring-2 focus:ring-green-500"
+              className="w-full border p-1 rounded-lg focus:ring-2 focus:ring-green-500"
             />
           </div>
           <div>
@@ -84,7 +80,7 @@ export default function RegisterPage() {
               name="address"
               value={form.address}
               onChange={handleChange}
-              className="w-full border p-2 rounded-lg focus:ring-2 focus:ring-green-500"
+              className="w-full border p-1 rounded-lg focus:ring-2 focus:ring-green-500"
             />
           </div>
 
@@ -95,7 +91,7 @@ export default function RegisterPage() {
               name="dob"
               value={form.dob}
               onChange={handleChange}
-              className="w-full border p-2 rounded-lg focus:ring-2 focus:ring-green-500"
+              className="w-full border p-1 rounded-lg focus:ring-2 focus:ring-green-500"
             />
           </div>
           <div>
@@ -104,7 +100,7 @@ export default function RegisterPage() {
               name="gender"
               value={form.gender}
               onChange={handleChange}
-              className="w-full border p-2 rounded-lg focus:ring-2 focus:ring-green-500"
+              className="w-full border p-1 rounded-lg focus:ring-2 focus:ring-green-500"
             >
               <option>Male</option>
               <option>Female</option>
@@ -118,7 +114,7 @@ export default function RegisterPage() {
               name="email"
               value={form.email}
               onChange={handleChange}
-              className="w-full border p-2 rounded-lg focus:ring-2 focus:ring-green-500"
+              className="w-full border p-1 rounded-lg focus:ring-2 focus:ring-green-500"
             />
           </div>
 
@@ -129,7 +125,7 @@ export default function RegisterPage() {
               name="phone"
               value={form.phone}
               onChange={handleChange}
-              className="w-full border p-2 rounded-lg focus:ring-2 focus:ring-green-500"
+              className="w-full border p-1 rounded-lg focus:ring-2 focus:ring-green-500"
             />
           </div>
           <div>
@@ -139,35 +135,13 @@ export default function RegisterPage() {
               name="password"
               value={form.password}
               onChange={handleChange}
-              className="w-full border p-2 rounded-lg focus:ring-2 focus:ring-green-500"
+              className="w-full border p-1 rounded-lg focus:ring-2 focus:ring-green-500"
             />
-          </div>
-
-          <div className="col-span-2 space-y-2">
-            <label className="flex items-center space-x-2 text-sm">
-              <input
-                type="checkbox"
-                name="terms"
-                checked={form.terms}
-                onChange={handleChange}
-              />
-              <span>I accept terms and conditions</span>
-            </label>
-
-            <label className="flex items-center space-x-2 text-sm">
-              <input
-                type="checkbox"
-                name="privacy"
-                checked={form.privacy}
-                onChange={handleChange}
-              />
-              <span>I accept the privacy policy</span>
-            </label>
           </div>
 
           <button
             type="submit"
-            className="col-span-2 bg-green-500 text-white p-3 rounded-lg hover:bg-green-600 transition"
+            className="col-span-2 bg-[#55A605] text-white p-3 rounded-lg"
           >
             Create account
           </button>
