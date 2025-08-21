@@ -17,15 +17,21 @@ export default function RegisterPage() {
     privacy: false,
   });
 
-  const handleChange = (e) => {
-    const { name, value, type, checked } = e.target;
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLSelectElement>
+  ) => {
+    const { name, value, type } = e.target;
+
     setForm((prev) => ({
       ...prev,
-      [name]: type === "checkbox" ? checked : value,
+      [name]:
+        type === "checkbox"
+          ? (e.target as HTMLInputElement).checked
+          : value,
     }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     console.log("📩 Datos enviados:", form);
     alert("✅ Cuenta creada!");
@@ -33,20 +39,18 @@ export default function RegisterPage() {
 
   return (
     <div className="min-h-screen flex items-center justify-center  from-white-100  px-4">
-
       <div className="relative max-w-md w-full bg-white shadow-xl rounded-2xl p-9">
         <div className="flex flex-col items-start mb-0 -ml-10">
-            <img
+          <img
             src="./agrored img.svg"
             alt="Logo"
             className="w-38 h-38"
-            />
+          />
         </div>
-              <h1 className="text-3xl font-bold text-center w-full -mt-10 mb-8">Create account</h1> 
+        <h1 className="text-3xl font-bold text-center w-full -mt-10 mb-8">Create account</h1> 
 
         <form onSubmit={handleSubmit} className="grid grid-cols-2 gap-4">
           <div>
-        
             <label className="text-sm font-medium">Name</label>
             <input
               name="name"
@@ -150,3 +154,4 @@ export default function RegisterPage() {
     </div>
   );
 }
+

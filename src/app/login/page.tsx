@@ -46,7 +46,7 @@
               
               <button
                 type="submit"
-                className="w-30 py-2 bg-black justify-center flex items-center text-white font-semibold rounded-md hover:bg-gray-800 transition-colors block mx-auto"
+                className="w-30 py-2 bg-black justify-center flex items-center text-white font-semibold rounded-md hover:bg-gray-800 transition-colors mx-auto"
               >
                 Login
               </button>
