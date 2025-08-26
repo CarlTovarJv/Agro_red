@@ -56,8 +56,6 @@
                   or Sign Up 
                 </a>
               </div>
-
-
             </form>
           </div>
         </div>
