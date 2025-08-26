@@ -10,7 +10,7 @@ datasource db {
 
 model roles {
   role_id   Int     @id @default(autoincrement())
-  role_name String  @unique @db.VarChar(50) // Ejemplo: comprador, vendedor
+  role_name String  @unique @db.VarChar(50)
   users     users[]
 }
 
@@ -26,7 +26,7 @@ model users {
   password          String       @db.VarChar(255)
   accept_terms      Boolean      @default(false)
   accept_privacy    Boolean      @default(false)
-  role_id           Int          @default(1) // por defecto comprador
+  role_id           Int          @default(1)
   registration_date DateTime?    @default(now()) @db.Timestamp(0)
   orders            orders[]     @relation("UserOrders")
   products          products[]   @relation("SellerProducts")
