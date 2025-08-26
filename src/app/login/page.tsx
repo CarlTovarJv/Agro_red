@@ -5,7 +5,7 @@
           <div className="w-96 p-8 bg-white rounded-xl shadow-md">
 
             <div className="flex justify-center -mt-8 ">
-              <img src="/logo.svg" alt="agrored" className="w-32" />
+              <img src="/Agrored-1-removebg-preview.png" alt="agrored" className="w-32" />
             </div>
     
             <h1 className="text-2xl font-bold text-center text-gray-800 mb-6 -mt-4">

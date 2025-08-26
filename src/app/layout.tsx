@@ -26,12 +26,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="es">
+    <html lang="es" className="scroll-smooth">
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         <AppMui>
           <Header />
-          <Nav active="Seasonal products"  />
+          {/* <Nav active="Seasonal products"  /> */}
         {children}
         </AppMui>
       </body>
