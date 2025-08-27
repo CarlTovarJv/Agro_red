@@ -17,7 +17,7 @@ export default function PricingSection() {
             
             <div>
               <img
-             src="./green orange.svg"
+             src="./big orange.svg"
                 alt="Bean icon"
                className="w-15 h-15 rounded-full flex items-center justify-center mb-6"
 />
