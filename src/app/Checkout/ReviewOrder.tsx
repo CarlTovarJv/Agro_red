@@ -39,7 +39,7 @@ const handleConfirmOrder = () => {
 };
     const orderDetails = {
         products: "3 selected",
-        total: "$100.00",
+        total: "$110.00",
         shipping: "$5.00"
 };
 
@@ -82,10 +82,10 @@ return (
                     <FaEdit />
                 </button>
             </div>
-                <p className="text-gray-700 font-semibold">Tipo de tarjeta: {paymentDetails.type}</p>
-                <p className="text-gray-600">Titular de la tarjeta: {paymentDetails.cardHolder}</p>
-                <p className="text-gray-600">Número de tarjeta: {paymentDetails.cardNumber}</p>
-                <p className="text-gray-600">Fecha de caducidad: {paymentDetails.expirationDate}</p>
+                <p className="text-gray-700 font-semibold">Card type: {paymentDetails.type}</p>
+                <p className="text-gray-600">Cardholder: {paymentDetails.cardHolder}</p>
+                <p className="text-gray-600">Card number: {paymentDetails.cardNumber}</p>
+                <p className="text-gray-600">Experation date: {paymentDetails.expirationDate}</p>
         </div>
             
         <div className="mb-8">

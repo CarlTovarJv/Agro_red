@@ -33,7 +33,7 @@ export default function CheckoutPage():JSX. Element {
 
     return (
         <div className="bg-gray-100 min-h-screen py-12 px-4 sm:px-6 lg:px-8">
-            <div className="max-w-7xl mx-auto">
+            <div className="mx-auto w-full p-24">
                 <CheckoutProgress currentStep={currentStep} />
                 <div className="flex flex-col lg:flex-row gap-8 justify-center items-start">
                     {renderForm()}

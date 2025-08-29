@@ -14,7 +14,7 @@ export default function CheckoutProgress({ currentStep }: Props): JSX.Element {
     ];
 
     return (
-        <div className="w-md max-2xl p-6 bg-white rounded-lg shadow-md mb-8">
+        <div className="w max-2xl p-6 bg-white rounded-lg shadow-md mb-8">
             <h2 className="text-2xl font-bold mb-6 text-gray-800">Checkout</h2>
             <div className="flex items-center justify-between relative">
                 <div className="absolute top-1/2 left-0 right-0 h-1 bg-gray-200 -z-10"></div>
