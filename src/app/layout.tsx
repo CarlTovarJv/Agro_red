@@ -21,7 +21,8 @@ const geistMono = Geist_Mono({
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
 
-  const hideLayout = pathname === "/login" || pathname === "/register";
+  const hideLayout = pathname === 
+  "/login" || pathname === "/register";
 
   return (
     <html lang="es">

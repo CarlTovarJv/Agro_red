@@ -1,18 +1,15 @@
-import { PrismaClient } from '@prisma/client'
+// src/lib/db.ts
+import { PrismaClient } from "@prisma/client";
 
-const prisma = new PrismaClient()
+let prisma: PrismaClient;
 
-async function main() {
-  const allUsers = await prisma.users.findMany()
-  console.log(allUsers)
+if (process.env.NODE_ENV === "production") {
+  prisma = new PrismaClient({ log: ["query"] });
+} else {
+  // @ts-ignore
+  if (!global.prisma) global.prisma = new PrismaClient({ log: ["query"] });
+  // @ts-ignore
+  prisma = global.prisma;
 }
 
-main()
-  .then(async () => {
-    await prisma.$disconnect()
-  })
-  .catch(async (e) => {
-    console.error(e)
-    await prisma.$disconnect()
-    process.exit(1)
-  })
+export { prisma };

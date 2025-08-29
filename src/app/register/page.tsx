@@ -1,7 +1,6 @@
 "use client";
 import React, { useState } from "react";
 
-// Definimos el tipo del formulario
 type FormData = {
   name: string;
   lastName: string;
@@ -17,7 +16,7 @@ type FormData = {
 };
 
 export default function RegisterForm() {
-  // Estado inicial tipado
+
   const [form, setForm] = useState<FormData>({
     name: "",
     lastName: "",
@@ -32,13 +31,11 @@ export default function RegisterForm() {
     privacy: false,
   });
 
-  // Manejo de cambios
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
   ) => {
     const { name, value, type } = e.target;
 
-    // Si es checkbox, obtenemos checked, sino value
     const checked =
       type === "checkbox" && "checked" in e.target ? e.target.checked : undefined;
 
@@ -48,7 +45,6 @@ export default function RegisterForm() {
     }));
   };
 
-  // Manejo del submit
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
@@ -62,8 +58,8 @@ export default function RegisterForm() {
       const data: { userId?: string; error?: string } = await res.json();
 
       if (res.ok && data.userId) {
-        alert(`✅ Cuenta creada! ID: ${data.userId}`);
-        // Resetear formulario
+        alert(`Cuenta creada! ID: ${data.userId}`);
+
         setForm({
           name: "",
           lastName: "",
@@ -78,11 +74,11 @@ export default function RegisterForm() {
           privacy: false,
         });
       } else {
-        alert(`❌ Error: ${data.error || "Algo salió mal"}`);
+        alert(` Error: ${data.error || "Algo salió mal"}`);
       }
     } catch (error) {
       console.error(error);
-      alert("❌ Ocurrió un error al crear la cuenta");
+      alert(" Ocurrió un error al crear la cuenta");
     }
   };
 
