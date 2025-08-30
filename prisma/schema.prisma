@@ -1,90 +1,22 @@
 generator client {
   provider = "prisma-client-js"
-  output   = "../src/generated/prisma"
 }
 
 datasource db {
-  provider = "mysql"
-  url      = env("DATABASE_URL")
-}
-
-model roles {
-  role_id   Int     @id @default(autoincrement())
-  role_name String  @db.VarChar(50)
-  users     users[]
+  provider = "sqlite"  
+  url      = "file:./dev.db"
 }
 
 model users {
-  user_id           Int          @id @default(autoincrement())
-  first_name        String       @db.VarChar(50)
-  last_name         String       @db.VarChar(50)
-  dui               String       @unique(map: "dui") @db.VarChar(20)
-  address           String       @db.VarChar(255)
-  date_of_birth     DateTime     @db.Date
-  gender            users_gender
-  email             String       @unique(map: "email") @db.VarChar(100)
-  password          String       @db.VarChar(255)
-  accept_terms      Boolean      @default(false)
-  accept_privacy    Boolean      @default(false)
-  role_id           Int          @default(2)
-  registration_date DateTime?    @default(now()) @db.Timestamp(0)
-  products          products[]   @relation("SellerProducts")
-  orders            orders[]     @relation("UserOrders")
-  role              roles        @relation(fields: [role_id], references: [role_id], onDelete: NoAction, onUpdate: NoAction, map: "users_ibfk_1")
-
-  @@index([role_id], map: "role_id")
+  user_id       Int      @id @default(autoincrement())
+  first_name    String
+  last_name     String
+  dui           String   @unique
+  address       String
+  date_of_birth DateTime
+  gender        String
+  email         String   @unique
+  password      String
+  accept_terms  Boolean
+  accept_privacy Boolean
 }
-
-model products {
-  product_id    Int             @id @default(autoincrement())
-  product_name  String          @db.VarChar(100)
-  description   String?         @db.Text
-  price         Decimal         @db.Decimal(10, 2)
-  created_at    DateTime        @default(now())
-  updated_at    DateTime        @updatedAt
-  seller_id     Int
-  order_details order_details[]
-  seller        users           @relation("SellerProducts", fields: [seller_id], references: [user_id])
-
-  @@index([seller_id], map: "seller_id")
-}
-
-model orders {
-  order_id      Int             @id @default(autoincrement())
-  user_id       Int
-  order_date    DateTime?       @default(now()) @db.Timestamp(0)
-  total         Decimal         @db.Decimal(10, 2)
-  status        order_status?   @default(Pending)
-  order_details order_details[]
-  user          users           @relation("UserOrders", fields: [user_id], references: [user_id], onDelete: NoAction, onUpdate: NoAction, map: "orders_ibfk_1")
-
-  @@index([user_id], map: "user_id")
-}
-
-model order_details {
-  order_detail_id Int      @id @default(autoincrement())
-  order_id        Int
-  product_id      Int
-  quantity        Int      @default(1)
-  price           Decimal  @db.Decimal(10, 2)
-  order           orders   @relation(fields: [order_id], references: [order_id], onDelete: NoAction, onUpdate: NoAction, map: "order_details_ibfk_1")
-  product         products @relation(fields: [product_id], references: [product_id], onDelete: NoAction, onUpdate: NoAction, map: "order_details_ibfk_2")
-
-  @@index([order_id], map: "order_id")
-  @@index([product_id], map: "product_id")
-}
-
-enum users_gender {
-  Male
-  Female
-  Other
-}
-
-enum order_status {
-  Pending
-  Paid
-  Shipped
-  Delivered
-  Cancelled
-}
-

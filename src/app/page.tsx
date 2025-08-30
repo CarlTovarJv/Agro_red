@@ -1,16 +1,21 @@
-"use client";
+const handleRegister = async () => {
+  const res = await fetch("/api/register", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      first_name: "Mateo",
+      last_name: "Perez",
+      dui: "12345678-9",
+      address: "Guatemala",
+      date_of_birth: "2000-01-01",
+      gender: "M",
+      email: "mateo@example.com",
+      password: "123456",
+      accept_terms: true,
+      accept_privacy: true,
+    }),
+  });
 
-function Page() {
-  return (
-    <div className="flex min-h-screen flex-col items-center justify-between p-24">
-      <h1 className="text-4xl font-bold">Agro Red</h1>
-      <div>
-        <p className="text-lg">Welcome to Agro Red!</p>
-        <p className="text-lg">Your one-stop solution for agricultural needs.</p>
-      </div>
-    </div>
-
-  )
-
-}
-export default Page
+  const data = await res.json();
+  console.log("Respuesta del backend:", data);
+};
