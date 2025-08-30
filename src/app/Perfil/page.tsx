@@ -2,49 +2,52 @@
 
 import { useEffect, useState } from "react";
 
-type Perfil = {
+type User = {
+  user_id: number;
   first_name: string;
   last_name: string;
-  email: string;
+  dui: string;
+  address: string;
   date_of_birth: string;
   gender: string;
+  email: string;
 };
 
-export default function PerfilPage() {
-  const [perfil, setPerfil] = useState<Perfil | null>(null);
+export default function ProfilePage() {
+  const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    fetch("/api/perfil") // <-- llama a la API sin query ni id en URL
-      .then(async (res) => {
-        if (!res.ok) {
-          const text = await res.text();
-          console.error("Error del servidor:", text);
-          throw new Error("Error en la API");
-        }
-        return res.json();
-      })
-      .then((data) => {
-        setPerfil(data);
-        setLoading(false);
-      })
-      .catch((err) => {
-        console.error(err);
-        setLoading(false);
-      });
-  }, []);
+  // Aquí colocas el ID del usuario que quieres mostrar
+  const userId = 1;
 
-  if (loading) return <p className="text-center mt-10">Cargando perfil...</p>;
-  if (!perfil) return <p className="text-center mt-10">No hay usuarios disponibles</p>;
+  useEffect(() => {
+    async function fetchUser() {
+      try {
+        const res = await fetch(`/api/users/${userId}?id=${userId}`);
+        const data: User = await res.json();
+        setUser(data);
+      } catch (err) {
+        console.error(err);
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    fetchUser();
+  }, [userId]);
+
+  if (loading) return <p>Cargando perfil...</p>;
+  if (!user) return <p>Usuario no encontrado</p>;
 
   return (
-    <div className="max-w-md mx-auto mt-10 p-6 bg-white rounded-xl shadow-md">
-      <h2 className="text-2xl font-bold mb-4 text-center">
-        Perfil de {perfil.first_name} {perfil.last_name}
-      </h2>
-      <p><strong>Email:</strong> {perfil.email}</p>
-      <p><strong>Fecha de nacimiento:</strong> {perfil.date_of_birth}</p>
-      <p><strong>Género:</strong> {perfil.gender}</p>
+    <div className="max-w-md mx-auto mt-10 bg-white p-6 rounded-lg shadow-lg">
+      <h1 className="text-2xl font-bold mb-4">Perfil de Usuario</h1>
+      <p><strong>Nombre:</strong> {user.first_name} {user.last_name}</p>
+      <p><strong>Email:</strong> {user.email}</p>
+      <p><strong>DUI:</strong> {user.dui}</p>
+      <p><strong>Dirección:</strong> {user.address}</p>
+      <p><strong>Fecha de Nacimiento:</strong> {new Date(user.date_of_birth).toLocaleDateString()}</p>
+      <p><strong>Género:</strong> {user.gender}</p>
     </div>
   );
 }

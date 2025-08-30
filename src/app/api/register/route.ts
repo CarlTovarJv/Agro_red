@@ -1,13 +1,13 @@
 import { NextResponse } from "next/server";
-import { Client } from "pg";
-import bcrypt from "bcryptjs"; 
+import { PrismaClient } from "@prisma/client";
+import bcrypt from "bcryptjs";
 
+const prisma = new PrismaClient();
 
-const { DATABASE_URL, JWT_SECRET} = process.env;
-
-export async function POST(request: Request) {
+export async function POST(req: Request) {
   try {
-    const data = await request.json();
+    const body = await req.json();
+
     const {
       name,
       lastName,
@@ -19,48 +19,35 @@ export async function POST(request: Request) {
       password,
       terms,
       privacy,
-    } = data;
+    } = body;
 
-    if (!terms || !privacy) {
+    if (!email || !password) {
       return NextResponse.json(
-        { error: "Debes aceptar los términos y privacidad." },
+        { error: "Email and password are required" },
         { status: 400 }
       );
     }
 
-    // Encriptar contraseña
     const hashedPassword = await bcrypt.hash(password, 10);
 
-    // Conectar a PostgreSQL
-    const client = new Client({ connectionString: DATABASE_URL });
-    await client.connect();
+    const user = await prisma.users.create({
+      data: {
+        first_name: name,
+        last_name: lastName,
+        dui,
+        address,
+        date_of_birth: new Date(dob),
+        gender,
+        email,
+        password: hashedPassword,
+        accept_terms: terms,
+        accept_privacy: privacy,
+      },
+    });
 
-    const query = `
-      INSERT INTO users
-      (first_name, last_name, dui, address, date_of_birth, gender, email, password, accept_terms, accept_privacy)
-      VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10)
-      RETURNING user_id;
-    `;
-
-    const values = [
-      name,
-      lastName,
-      dui,
-      address,
-      dob,
-      gender,
-      email,
-      hashedPassword,
-      terms,
-      privacy,
-    ];
-
-    const result = await client.query(query, values);
-    await client.end();
-
-    return NextResponse.json({ success: true, userId: result.rows[0].user_id });
-  } catch (err: any) {
-    console.error(err);
-    return NextResponse.json({ error: err.message }, { status: 500 });
+    return NextResponse.json({ userId: user.user_id }, { status: 201 });
+  } catch (error: any) {
+    console.error(error);
+    return NextResponse.json({ error: "Internal Server Error" }, { status: 500 });
   }
 }
