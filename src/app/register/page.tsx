@@ -15,7 +15,7 @@ export default function RegisterPage() {
     privacy: false,
   });
 
-  const handleChange = (e) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value, type, checked } = e.target;
     setForm((prev) => ({
       ...prev,
@@ -23,71 +23,100 @@ export default function RegisterPage() {
     }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     console.log("📩 Datos enviados:", form);
     alert("✅ Cuenta creada!");
   };
+
   return (
-    <div className="flex min-h-screen bg-gray-100 items-center justify-center shadow-xl">
-      <div className="w-96 p-8 bg-white rounded-xl shadow-md">
+    <div className="flex min-h-screen bg-gray-100 items-center justify-center">
+      <div className="w-full max-w-md p-8 bg-white rounded-2xl shadow-lg space-y-6">
+        {/* Logo */}
+        <div className="flex justify-center">
+          <img
+            src="/Agrored-1-removebg-preview.png"
+            alt="agrored"
+            className="w-32 h-17 object-contain"
+          />
+        </div>
 
+        {/* Título */}
+        <h1 className="text-3xl font-bold text-center text-black">
+          Create Account
+        </h1>
+        <p className="text-center text-gray-600">Fill in the form to get started</p>
 
-      <div className="flex justify-center -mt-8">
-          <img src="/logo.svg" alt="agrored" className="w-32" />
-      </div>
-    
-         <h1 className="text-2xl font-bold text-center text-gray-800 mb-6 -mt-4">Create Account</h1>
-
-        
-            <div className="mb-2">
-            <label className="block text-sm font-medium text-gray-700 mb-1">Full Name</label>
+        {/* Formulario */}
+        <form onSubmit={handleSubmit} className="space-y-4">
+          <div>
+            <label className="block text-sm font-medium text-black mb-1">
+              Full Name
+            </label>
             <input
               name="name"
               value={form.name}
               placeholder="Juan Fernandez"
               onChange={handleChange}
-              className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-black"
-            />           
+              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-black"
+              required
+            />
           </div>
 
-          <div className="mb-2">
-            <label className="block text-sm font-medium text-gray-700 mb-1">Email</label>
+          <div>
+            <label className="block text-sm font-medium text-black mb-1">
+              Email
+            </label>
             <input
               type="email"
               name="email"
               value={form.email}
-              placeholder="Enter your email"
+              placeholder="example@email.com"
               onChange={handleChange}
-              className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-black"
+              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-black"
+              required
             />
           </div>
 
-          <div className="mb-2">
-                <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Password
-                </label>
-                <input
-                  type="password"
-                  placeholder="Enter your password"
-                  className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-black"
-                />
+          <div>
+            <label className="block text-sm font-medium text-black mb-1">
+              Password
+            </label>
+            <input
+              type="password"
+              name="password"
+              value={form.password}
+              placeholder="••••••••"
+              onChange={handleChange}
+              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-black"
+              required
+            />
           </div>
-
-          <div className="text-right mb-2">
-                <a href="#" className="text-sm text-gray-600 hover:underline">
-                  Forgot password?
-                </a>
-              </div>
 
           <button
             type="submit"
-            className="w-30 py-2 bg-black justify-center flex items-center text-white font-semibold rounded-md hover:bg-gray-800 transition-colors mx-auto"
+            className="w-full py-3 bg-black hover:bg-gray-800 text-white font-semibold rounded-lg transition-colors"
           >
-            Create 
+            Create Account
           </button>
-       
+        </form>
+
+        {/* Already have account */}
+        <div className="text-center mt-4">
+          <p className="text-sm text-gray-600">
+            Already have an account?{" "}
+            <a
+              href="/login"
+              className="text-black font-medium hover:underline hover:text-gray-800"
+            >
+              Sign In
+            </a>
+          </p>
+        </div>
       </div>
     </div>
   );
-};
+}
+
+
+
