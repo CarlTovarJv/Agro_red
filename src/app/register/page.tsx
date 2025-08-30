@@ -2,8 +2,21 @@
 
 import { useState } from "react";
 
+type FormData = {
+  name: string;
+  lastName: string;
+  dui: string;
+  address: string;
+  dob: string;
+  gender: "Male" | "Female";
+  email: string;
+  password: string;
+  terms: boolean;
+  privacy: boolean;
+};
+
 export default function RegisterPage() {
-  const [form, setForm] = useState({
+  const [form, setForm] = useState<FormData>({
     name: "",
     lastName: "",
     dui: "",
@@ -15,79 +28,80 @@ export default function RegisterPage() {
     privacy: false,
   });
 
-  const handleChange = (e) => {
-    const { name, value, type, checked } = e.target;
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+    const { name, type, value } = e.target;
+
+    // ✅ Manejar checkbox correctamente
+    const checked = type === "checkbox" ? (e.target as HTMLInputElement).checked : undefined;
+
     setForm((prev) => ({
       ...prev,
-      [name]: type === "checkbox" ? checked : value,
+      [name]: type === "checkbox" ? checked! : value,
     }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log("📩 Datos enviados:", form);
-    alert("✅ Cuenta creada!");
+
+    try {
+      const res = await fetch("/api/register", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(form),
+      });
+
+      const data: { userId?: number; error?: string } = await res.json();
+
+      if (res.ok && data.userId) {
+        alert(`Cuenta creada! ID: ${data.userId}`);
+        setForm({
+          name: "",
+          lastName: "",
+          dui: "",
+          address: "",
+          dob: "",
+          gender: "Male",
+          email: "",
+          password: "",
+          terms: false,
+          privacy: false,
+        });
+      } else {
+        alert(`Error: ${data.error || "Algo salió mal"}`);
+      }
+    } catch (err) {
+      console.error(err);
+      alert("Ocurrió un error");
+    }
   };
+
   return (
-    <div className="flex min-h-screen bg-gray-100 items-center justify-center shadow-xl">
-      <div className="w-96 p-8 bg-white rounded-xl shadow-md">
+    <form onSubmit={handleSubmit} className="max-w-md mx-auto mt-10 space-y-4">
+      <input name="name" value={form.name} onChange={handleChange} placeholder="Nombre" className="border p-2 w-full" />
+      <input name="lastName" value={form.lastName} onChange={handleChange} placeholder="Apellido" className="border p-2 w-full" />
+      <input name="dui" value={form.dui} onChange={handleChange} placeholder="DUI" className="border p-2 w-full" />
+      <input name="address" value={form.address} onChange={handleChange} placeholder="Dirección" className="border p-2 w-full" />
+      <input type="date" name="dob" value={form.dob} onChange={handleChange} className="border p-2 w-full" />
+      <select name="gender" value={form.gender} onChange={handleChange} className="border p-2 w-full">
+        <option value="Male">Masculino</option>
+        <option value="Female">Femenino</option>
+      </select>
+      <input type="email" name="email" value={form.email} onChange={handleChange} placeholder="Correo" className="border p-2 w-full" />
+      <input type="password" name="password" value={form.password} onChange={handleChange} placeholder="Contraseña" className="border p-2 w-full" />
 
+      <label className="flex items-center space-x-2">
+        <input type="checkbox" name="terms" checked={form.terms} onChange={handleChange} />
+        <span>Acepto los términos</span>
+      </label>
 
-      <div className="flex justify-center -mt-8">
-          <img src="/logo.svg" alt="agrored" className="w-32" />
-      </div>
-    
-         <h1 className="text-2xl font-bold text-center text-gray-800 mb-6 -mt-4">Create Account</h1>
+      <label className="flex items-center space-x-2">
+        <input type="checkbox" name="privacy" checked={form.privacy} onChange={handleChange} />
+        <span>Acepto la política de privacidad</span>
+      </label>
 
-        
-            <div className="mb-2">
-            <label className="block text-sm font-medium text-gray-700 mb-1">Full Name</label>
-            <input
-              name="name"
-              value={form.name}
-              placeholder="Juan Fernandez"
-              onChange={handleChange}
-              className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-black"
-            />           
-          </div>
-
-          <div className="mb-2">
-            <label className="block text-sm font-medium text-gray-700 mb-1">Email</label>
-            <input
-              type="email"
-              name="email"
-              value={form.email}
-              placeholder="Enter your email"
-              onChange={handleChange}
-              className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-black"
-            />
-          </div>
-
-          <div className="mb-2">
-                <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Password
-                </label>
-                <input
-                  type="password"
-                  placeholder="Enter your password"
-                  className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-black"
-                />
-          </div>
-
-          <div className="text-right mb-2">
-                <a href="#" className="text-sm text-gray-600 hover:underline">
-                  Forgot password?
-                </a>
-              </div>
-
-          <button
-            type="submit"
-            className="w-30 py-2 bg-black justify-center flex items-center text-white font-semibold rounded-md hover:bg-gray-800 transition-colors mx-auto"
-          >
-            Create 
-          </button>
-       
-      </div>
-    </div>
+      <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded w-full">
+        Crear cuenta
+      </button>
+    </form>
   );
-};
+}
