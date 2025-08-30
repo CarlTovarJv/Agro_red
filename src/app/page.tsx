@@ -2,15 +2,10 @@
 
 function Page() {
   return (
-    <div className="flex min-h-screen flex-col items-center justify-between p-24">
-      <h1 className="text-4xl font-bold">Agro Red</h1>
-      <div>
-        <p className="text-lg">Welcome to Agro Red!</p>
-        <p className="text-lg">Your one-stop solution for agricultural needs.</p>
-      </div>
+    <div className="min-h-screen flex items-center justify-center bg-green-50">
+      <h1 className="text-4xl font-bold text-green-800">Welcome to AgroRed!</h1>
     </div>
-
-  )
-
+)
 }
 export default Page
+
