@@ -1,8 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import Header from './components/header';
-import Nav from './components/nav';
+import Header from "./components/pre-navbar";
 import AppMui from "@/theme/AppMui";
 
 const geistSans = Geist({
@@ -26,12 +25,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="es">
+    <html lang="es" className="scroll-smooth">
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         <AppMui>
           <Header />
-          <Nav active="Seasonal products"  />
+          {/* <Nav active="Seasonal products"  /> */}
         {children}
         </AppMui>
       </body>
