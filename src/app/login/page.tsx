@@ -38,7 +38,7 @@
     
 
               <div className="text-right mb-4">
-                <a href="#" className="text-sm text-red-600 hover:underline">
+                <a href="#" className="text-sm text-gray-600 hover:underline">
                   Forgot password?
                 </a>
               </div>
