@@ -3,8 +3,7 @@ import { usePathname } from "next/navigation";
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import Header from './components/header';
-import Nav from './components/nav';
+import Header from './components/pre-navbar';
 import Footer from './components/footer';
 import AppMui from "@/theme/AppMui";
 
@@ -28,10 +27,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="es">
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         <AppMui>
-          {!hideLayout && <Header />}
-          {!hideLayout && <Nav active="Seasonal products" />}
+          <Header />
           <main>{children}</main>
-          {!hideLayout && <Footer />}
+          <Footer />
         </AppMui>
       </body>
     </html>
