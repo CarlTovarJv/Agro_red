@@ -2,21 +2,8 @@
 
 import { useState } from "react";
 
-type FormData = {
-  name: string;
-  lastName: string;
-  dui: string;
-  address: string;
-  dob: string;
-  gender: "Male" | "Female";
-  email: string;
-  password: string;
-  terms: boolean;
-  privacy: boolean;
-};
-
 export default function RegisterPage() {
-  const [form, setForm] = useState<FormData>({
+  const [form, setForm] = useState({
     name: "",
     lastName: "",
     dui: "",
@@ -28,80 +15,108 @@ export default function RegisterPage() {
     privacy: false,
   });
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
-    const { name, type, value } = e.target;
-
-    // ✅ Manejar checkbox correctamente
-    const checked = type === "checkbox" ? (e.target as HTMLInputElement).checked : undefined;
-
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value, type, checked } = e.target;
     setForm((prev) => ({
       ...prev,
-      [name]: type === "checkbox" ? checked! : value,
+      [name]: type === "checkbox" ? checked : value,
     }));
   };
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
-    try {
-      const res = await fetch("/api/register", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(form),
-      });
-
-      const data: { userId?: number; error?: string } = await res.json();
-
-      if (res.ok && data.userId) {
-        alert(`Cuenta creada! ID: ${data.userId}`);
-        setForm({
-          name: "",
-          lastName: "",
-          dui: "",
-          address: "",
-          dob: "",
-          gender: "Male",
-          email: "",
-          password: "",
-          terms: false,
-          privacy: false,
-        });
-      } else {
-        alert(`Error: ${data.error || "Algo salió mal"}`);
-      }
-    } catch (err) {
-      console.error(err);
-      alert("Ocurrió un error");
-    }
+    console.log("📩 Datos enviados:", form);
+    alert("✅ Cuenta creada!");
   };
 
   return (
-    <form onSubmit={handleSubmit} className="max-w-md mx-auto mt-10 space-y-4">
-      <input name="name" value={form.name} onChange={handleChange} placeholder="Nombre" className="border p-2 w-full" />
-      <input name="lastName" value={form.lastName} onChange={handleChange} placeholder="Apellido" className="border p-2 w-full" />
-      <input name="dui" value={form.dui} onChange={handleChange} placeholder="DUI" className="border p-2 w-full" />
-      <input name="address" value={form.address} onChange={handleChange} placeholder="Dirección" className="border p-2 w-full" />
-      <input type="date" name="dob" value={form.dob} onChange={handleChange} className="border p-2 w-full" />
-      <select name="gender" value={form.gender} onChange={handleChange} className="border p-2 w-full">
-        <option value="Male">Masculino</option>
-        <option value="Female">Femenino</option>
-      </select>
-      <input type="email" name="email" value={form.email} onChange={handleChange} placeholder="Correo" className="border p-2 w-full" />
-      <input type="password" name="password" value={form.password} onChange={handleChange} placeholder="Contraseña" className="border p-2 w-full" />
+    <div className="flex min-h-screen bg-gray-100 items-center justify-center">
+      <div className="w-full max-w-md p-8 bg-white rounded-2xl shadow-lg space-y-6">
+        {/* Logo */}
+        <div className="flex justify-center">
+          <img
+            src="/Agrored-1-removebg-preview.png"
+            alt="agrored"
+            className="w-32 h-17 object-contain"
+          />
+        </div>
 
-      <label className="flex items-center space-x-2">
-        <input type="checkbox" name="terms" checked={form.terms} onChange={handleChange} />
-        <span>Acepto los términos</span>
-      </label>
+        {/* Título */}
+        <h1 className="text-3xl font-bold text-center text-black">
+          Create Account
+        </h1>
+        <p className="text-center text-gray-600">Fill in the form to get started</p>
 
-      <label className="flex items-center space-x-2">
-        <input type="checkbox" name="privacy" checked={form.privacy} onChange={handleChange} />
-        <span>Acepto la política de privacidad</span>
-      </label>
+        {/* Formulario */}
+        <form onSubmit={handleSubmit} className="space-y-4">
+          <div>
+            <label className="block text-sm font-medium text-black mb-1">
+              Full Name
+            </label>
+            <input
+              name="name"
+              value={form.name}
+              placeholder="Juan Fernandez"
+              onChange={handleChange}
+              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-black"
+              required
+            />
+          </div>
 
-      <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded w-full">
-        Crear cuenta
-      </button>
-    </form>
+          <div>
+            <label className="block text-sm font-medium text-black mb-1">
+              Email
+            </label>
+            <input
+              type="email"
+              name="email"
+              value={form.email}
+              placeholder="example@email.com"
+              onChange={handleChange}
+              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-black"
+              required
+            />
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium text-black mb-1">
+              Password
+            </label>
+            <input
+              type="password"
+              name="password"
+              value={form.password}
+              placeholder="••••••••"
+              onChange={handleChange}
+              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-black"
+              required
+            />
+          </div>
+
+          <button
+            type="submit"
+            className="w-full py-3 bg-black hover:bg-gray-800 text-white font-semibold rounded-lg transition-colors"
+          >
+            Create Account
+          </button>
+        </form>
+
+        {/* Already have account */}
+        <div className="text-center mt-4">
+          <p className="text-sm text-gray-600">
+            Already have an account?{" "}
+            <a
+              href="/login"
+              className="text-black font-medium hover:underline hover:text-gray-800"
+            >
+              Sign In
+            </a>
+          </p>
+        </div>
+      </div>
+    </div>
   );
 }
+
+
+
