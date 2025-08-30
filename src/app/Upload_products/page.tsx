@@ -11,127 +11,144 @@ export default function UploadProduct() {
     photos: [],
   });
 
-  const handleChange = (e) => {
+  const handleChange = (
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
+    >
+  ) => {
     const { name, value } = e.target;
     setProduct({ ...product, [name]: value });
   };
 
-  const handlePhotoUpload = (e) => {
+  const handlePhotoUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
       setProduct({ ...product, photos: Array.from(e.target.files) });
     }
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     console.log(product);
-    alert("Producto subido con éxito 🚀");
+    alert("Product upload succesfully 🚀");
   };
 
   return (
-    <div className="flex min-h-screen bg-gray-100 items-center justify-center shadow-xl">
-      <div className="w-96 max-w-md p-8 bg-white shadow-xl shadow-md rounded-xl">
-       
-        <h2 className="text-2xl font-bold text-center text-gray-800 mb-6 -mt-4">Upload Products</h2>
+    <div className="flex min-h-screen bg-gray-100">
+      <div className="w-full h-full bg-white shadow-lg rounded-none p-24">
+        <h2 className="text-4xl font-bold text-center text-gray-800 mb-8">
+          Upload Products
+        </h2>
 
-          <div className="mb-1">
-            <label className="block text-sm font-medium">Product name</label>
-            <input
-              type="text"
-              name="name"
-              value={product.name}
-              onChange={handleChange}
-              className="w-full border border-[#55A605] rounded-md p-2 focus:outline-none focus:ring-[#55A605]"
-              placeholder="Enter product name"
-              required
-            />
-          </div>
-
-          
-          <div className="mb-1">
-            <label className="block text-sm font-medium">Descripcion</label>
-            <textarea
-              name="description"
-              value={product.description}
-              onChange={handleChange}
-              className="w-full border border-[#55A605] rounded-md p-1 focus:outline-none focus:ring-[#55A605]"
-              placeholder="Enter description"
-              rows={0}
-              required
-            />
-          </div>
-
-       
-          <div className="mb-1">
-            <label className="block text-sm font-medium">Price</label>
-            <input
-              type="number"
-              name="price"
-              value={product.price}
-              onChange={handleChange}
-              className="w-24 border border-[#55A605] rounded p-1 focus:outline-none"
-              placeholder="$"
-              required
-            />
-          </div>
-
-        
-          <div className="mb-1" >
-            <label className="block text-sm font-medium">Stock</label>
-            <input
-              type="number"
-              name="stock"
-              value={product.stock}
-              onChange={handleChange}
-              className="w-24 border border-[#55A605] rounded p-1 focus:outline-none"
-              placeholder="0"
-              required
-            />
-          </div>
-
-        
-          <div className="mb-1">
-            <label className="block text-sm font-medium">Category</label>
-            <select
-              name="category"
-              value={product.category}
-              onChange={handleChange}
-              className="w-full border border-[#55A605] rounded-md p-2 focus:outline-none focus:ring-[#55A605]"
-              required
-            >
-              <option value="select">Select category</option>
-              <option value="fruit">Fruits</option>
-              <option value="vegetable">Vegetables</option>
-              <option value="grains">Grains</option>
-              <option value="other">Other</option>
-            </select>
-          </div>
-
-       
-          <div className="mb-2">
-            <label className="block text-sm font-medium">Photos</label>
-            <div className="border-2 border-dashed border-[#55A605] rounded-lg p-6 flex flex-col items-center justify-center text-center">
-              <p className="font-medium">Add Photo</p>
-              <p className="text-xs text-gray-500">Upload photo of your product</p>
-              <label className="mt-2 bg-[#55A605] text-white px-4 py-1 rounded cursor-pointer">
-                Add Photo
-                <input
-                  type="file"
-                  multiple
-                  className="hidden"
-                  onChange={handlePhotoUpload}
-                />
+        <form
+          onSubmit={handleSubmit}
+          className="grid grid-cols-1 md:grid-cols-3 gap-10"
+        >
+          <div className="md:col-span-2 space-y-6">
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1">
+                Product Name
               </label>
+              <input
+                type="text"
+                name="name"
+                value={product.name}
+                onChange={handleChange}
+                className="w-full h-14 px-5 py-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-black"
+                placeholder="Enter Product name"
+                required
+              />
+            </div>
+
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                Description
+              </label>
+              <textarea
+                name="description"
+                value={product.description}
+                onChange={handleChange}
+                className="w-full h-20 px-5 py-3 border rounded-md focus:outline-none focus:ring-3 focus:ring-black"
+                placeholder="Enter description"
+                required
+              />
+            </div>
+
+            <div className="grid grid-cols-2 gap-6">
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">
+                  Price
+                </label>
+                <input
+                  type="number"
+                  name="price"
+                  value={product.price}
+                  onChange={handleChange}
+                  className="w-full h-14 px-5 py-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-black"
+                  placeholder="$"
+                  required
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">
+                  Stock
+                </label>
+                <input
+                  type="number"
+                  name="stock"
+                  value={product.stock}
+                  onChange={handleChange}
+                  className="w-full h-14 px-5 py-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-black"
+                  placeholder="0"
+                  required
+                />
+              </div>
+            </div>
+
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1">
+                Category
+              </label>
+              <select
+                name="category"
+                value={product.category}
+                onChange={handleChange}
+                className="w-full h-14 px-5 py-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-black"
+                required
+              >
+                <option value="">Select category</option>
+                <option value="fruit">Fruits</option>
+                <option value="vegetable">Vegetables</option>
+                <option value="grains">Grains</option>
+                <option value="other">Other</option>
+              </select>
+            </div>
+
+            <div>
+              <button
+                type="submit"
+                className="w-full h-14 bg-black text-white rounded-md hover:bg-gray-800 transition"
+              >
+                Upload
+              </button>
             </div>
           </div>
 
-         
-          <button 
-            type="submit"
-            className="w-full bg-[#55A605] text-white p-2 rounded mt-2  border border-[#55A605] rounded-md focus:outline-none focus:ring-[#55A605]"
-          >            
-            Upload
-          </button>
+          <div className="w-full flex flex-col items-center justify-center border-2 border-dashed border-gray-400 rounded-xl p-6 h-full">
+            <p className="text-2xl mb-2 text-center">🍑 Add photo</p>
+            <p className="text-xs text-gray-500 mb-4 text-center">
+              Upload photo of your products
+            </p>
+            <label className="bg-black text-white px-2 py-3 rounded cursor-pointer text-center w-full max-w-28">
+              Add photo
+              <input
+                type="file"
+                multiple
+                className="hidden"
+                onChange={handlePhotoUpload}
+              />
+            </label>
+          </div>
+        </form>
       </div>
     </div>
   );
