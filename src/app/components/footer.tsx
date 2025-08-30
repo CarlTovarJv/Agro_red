@@ -2,7 +2,7 @@ import { Instagram, Facebook, Linkedin, Globe, MapPin } from "lucide-react";
 
 function Footer() {
   return (
-    <footer className="bg-black text-white w-full py-8">
+    <footer className="text-white bg-black w-full py-8">
       <div className="px-20">
 
         <div className="flex items-center">
