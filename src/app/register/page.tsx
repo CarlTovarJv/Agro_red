@@ -29,6 +29,7 @@ const initialForm: FormData = {
 };
 
 export default function RegisterPage() {
+
   const [form, setForm] = useState<FormData>(initialForm);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
