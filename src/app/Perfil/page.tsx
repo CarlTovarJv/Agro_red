@@ -17,7 +17,7 @@ export default function ProfilePage() {
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
 
-  const userId = 2; // ID del usuario que quieres mostrar
+  const userId = 2;
 
   useEffect(() => {
     async function fetchUser() {
