@@ -1,7 +1,6 @@
 "use client"; 
 
 import { usePathname } from "next/navigation";
-import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Header from './components/pre-navbar';
@@ -22,22 +21,19 @@ const geistMono = Geist_Mono({
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
 
-  // Nav solo en login y register
-  const showNav = pathname === "/login" || pathname === "/register";
+  // Header solo en login y register
+  const showHeader = pathname === "/login" || pathname === "/register";
+
+  // Nav solo en páginas distintas de login y register
+  const showNav = !showHeader;
 
   return (
     <html lang="es">
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         <AppMui>
-          {/* Header siempre visible */}
-          <Header />
-
-          {/* Nav solo en login y register */}
+          {showHeader && <Header />}
           {showNav && <Nav active="Seasonal products" />}
-
           <main>{children}</main>
-
-          {/* Footer siempre visible */}
           <Footer />
         </AppMui>
       </body>

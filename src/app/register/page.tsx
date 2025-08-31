@@ -2,41 +2,82 @@
 
 import { useState } from "react";
 
+type FormData = {
+  first_name: string;
+  last_name: string;
+  dui: string;
+  address: string;
+  gender: "Male" | "Female";
+  email: string;
+  password: string;
+  accept_terms: boolean;
+  accept_privacy: boolean;
+  role_id: number;
+};
+
+const initialForm: FormData = {
+  first_name: "",
+  last_name: "",
+  dui: "",
+  address: "",
+  gender: "Male",
+  email: "",
+  password: "",
+  accept_terms: false,
+  accept_privacy: false,
+  role_id: 1,
+};
+
 export default function RegisterPage() {
-  const [form, setForm] = useState({
-    name: "",
-    lastName: "",
-    dui: "",
-    role: "",
-    address: "",
-    email: "",
-    password: "",
-    terms: false,
-    privacy: false,
-  });
+  const [form, setForm] = useState<FormData>(initialForm);
 
-  // Solo para <input>
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value, type, checked } = e.currentTarget;
-    setForm((prev) => ({
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+    const { name, type, value } = e.target;
+    const checked = type === "checkbox" ? (e.target as HTMLInputElement).checked : undefined;
+
+    setForm(prev => ({
       ...prev,
-      [name]: type === "checkbox" ? checked : value,
+      [name]: type === "checkbox" ? checked! : name === "role_id" ? Number(value) : value,
     }));
   };
 
-  // Solo para <select>
-  const handleSelectChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    const { name, value } = e.currentTarget;
-    setForm((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
-  };
-
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log("📩 Datos enviados:", form);
-    alert("✅ Cuenta creada!");
+
+    if (!form.accept_terms || !form.accept_privacy) {
+      alert("Debes aceptar los términos y la política de privacidad.");
+      return;
+    }
+
+    if (!form.email.includes("@")) {
+      alert("Ingresa un correo válido");
+      return;
+    }
+
+    if (form.password.length < 6) {
+      alert("La contraseña debe tener al menos 6 caracteres");
+      return;
+    }
+
+    try {
+      const res = await fetch("/api/register", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(form),
+      });
+
+      const data: { userId?: number; error?: string } = await res.json();
+
+      if (res.ok && data.userId) {
+        alert(`Cuenta creada! ID: ${data.userId}`);
+        setForm(initialForm);
+      } else {
+        alert(`Error: ${data.error || "Algo salió mal"}`);
+      }
+    } catch (err) {
+      console.error(err);
+      alert("Ocurrió un error");
+    }
   };
 
   return (
@@ -53,112 +94,130 @@ export default function RegisterPage() {
 
         {/* Título */}
         <h1 className="text-3xl font-bold text-center text-black">
-          Create Account
+          Crear Cuenta
         </h1>
-        <p className="text-center text-gray-600">
-          Fill in the form to get started
-        </p>
+        <p className="text-center text-gray-600">Completa el formulario para registrarte</p>
 
         {/* Formulario */}
         <form onSubmit={handleSubmit} className="space-y-4">
-          {/* Given Name + Surname en la misma fila */}
           <div className="grid grid-cols-2 gap-4">
-            <div>
-              <label className="block text-sm font-medium text-black mb-1">
-                Given Name
-              </label>
-              <input
-                name="name"
-                value={form.name}
-                placeholder="Juan"
-                onChange={handleInputChange}
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-black"
-                required
-              />
-            </div>
-            <div>
-              <label className="block text-sm font-medium text-black mb-1">
-                Surname
-              </label>
-              <input
-                name="lastName"
-                value={form.lastName}
-                placeholder="Fernandez"
-                onChange={handleInputChange}
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-black"
-                required
-              />
-            </div>
-          </div>
-
-          <div>
-            <label className="block text-sm font-medium text-black mb-1">
-              Email
-            </label>
             <input
-              type="email"
-              name="email"
-              value={form.email}
-              placeholder="example@email.com"
-              onChange={handleInputChange}
+              name="first_name"
+              value={form.first_name}
+              onChange={handleChange}
+              placeholder="Nombre"
+              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-black"
+              required
+            />
+            <input
+              name="last_name"
+              value={form.last_name}
+              onChange={handleChange}
+              placeholder="Apellido"
               className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-black"
               required
             />
           </div>
 
-          <div>
-            <label className="block text-sm font-medium text-black mb-1">
-              Password
-            </label>
-            <input
-              type="password"
-              name="password"
-              value={form.password}
-              placeholder="••••••••"
-              onChange={handleInputChange}
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-black"
-              required
-            />
-          </div>
+          <input
+            name="dui"
+            value={form.dui}
+            onChange={handleChange}
+            placeholder="DUI"
+            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-black"
+            required
+          />
 
-          {/* Selección de Rol */}
-          <div>
-            <label className="block text-sm font-medium text-black mb-1">
-              Role
+          <input
+            name="address"
+            value={form.address}
+            onChange={handleChange}
+            placeholder="Dirección"
+            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-black"
+          />
+
+          <select
+            name="gender"
+            value={form.gender}
+            onChange={handleChange}
+            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-black"
+          >
+            <option value="Male">Masculino</option>
+            <option value="Female">Femenino</option>
+          </select>
+
+          <input
+            type="email"
+            name="email"
+            value={form.email}
+            onChange={handleChange}
+            placeholder="Correo electrónico"
+            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-black"
+            required
+          />
+
+          <input
+            type="password"
+            name="password"
+            value={form.password}
+            onChange={handleChange}
+            placeholder="Contraseña"
+            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-black"
+            required
+          />
+
+          <select
+            name="role_id"
+            value={form.role_id}
+            onChange={handleChange}
+            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-black"
+          >
+            <option value={1}>Buyer</option>
+            <option value={2}>Seller</option>
+            <option value={3}>Administrator</option>
+          </select>
+
+          <div className="space-y-2">
+            <label className="flex items-center space-x-2">
+              <input
+                type="checkbox"
+                name="accept_terms"
+                checked={form.accept_terms}
+                onChange={handleChange}
+                className="w-4 h-4"
+              />
+              <span>Acepto los términos</span>
             </label>
-            <select
-              name="role"
-              value={form.role}
-              onChange={handleSelectChange}
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-black"
-              required
-            >
-              <option value="" disabled>
-                Select a role
-              </option>
-              <option value="buyer">Buyer</option>
-              <option value="seller">Seller</option>
-              <option value="admin">Admin</option>
-            </select>
+
+            <label className="flex items-center space-x-2">
+              <input
+                type="checkbox"
+                name="accept_privacy"
+                checked={form.accept_privacy}
+                onChange={handleChange}
+                className="w-4 h-4"
+              />
+              <span>Acepto la política de privacidad</span>
+            </label>
           </div>
 
           <button
             type="submit"
-            className="w-full py-3 bg-black hover:bg-gray-800 text-white font-semibold rounded-lg transition-colors"
+            className="w-full bg-black text-white font-semibold px-4 py-3 rounded-lg hover:bg-gray-800 transition disabled:bg-gray-400"
+            disabled={!form.accept_terms || !form.accept_privacy}
           >
-            Create Account
+            Crear cuenta
           </button>
         </form>
 
-        {/* Already have account */}
         <div className="text-center mt-4">
           <p className="text-sm text-gray-600">
-            Already have an account?{" "}
+            ¿Ya tienes cuenta?{" "}
             <a
               href="/login"
               className="text-black font-medium hover:underline hover:text-gray-800"
             >
-              Sign In
+              Iniciar sesión
             </a>
           </p>
         </div>
@@ -166,9 +225,3 @@ export default function RegisterPage() {
     </div>
   );
 }
-
-
-
-
-
-
