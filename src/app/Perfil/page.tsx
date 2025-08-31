@@ -17,17 +17,18 @@ export default function ProfilePage() {
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
 
-  // Aquí colocas el ID del usuario que quieres mostrar
-  const userId = 1;
+  const userId = 2; // ID del usuario que quieres mostrar
 
   useEffect(() => {
     async function fetchUser() {
       try {
-        const res = await fetch(`/api/users/${userId}?id=${userId}`);
+        const res = await fetch(`/api/users/${userId}`);
+        if (!res.ok) throw new Error("Usuario no encontrado");
         const data: User = await res.json();
         setUser(data);
       } catch (err) {
         console.error(err);
+        setUser(null);
       } finally {
         setLoading(false);
       }
@@ -46,8 +47,9 @@ export default function ProfilePage() {
       <p><strong>Email:</strong> {user.email}</p>
       <p><strong>DUI:</strong> {user.dui}</p>
       <p><strong>Dirección:</strong> {user.address}</p>
-      <p><strong>Fecha de Nacimiento:</strong> {new Date(user.date_of_birth).toLocaleDateString()}</p>
       <p><strong>Género:</strong> {user.gender}</p>
+      <p><strong>Rol:</strong>{" "}{user.role_id === 1? "Buyer": user.role_id === 2? "Seller": user.role_id === 3? "Admin": "Desconocido"}
+</p>
     </div>
   );
 }

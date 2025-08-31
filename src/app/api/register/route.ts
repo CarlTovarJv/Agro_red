@@ -1,53 +1,42 @@
 import { NextResponse } from "next/server";
-import { PrismaClient } from "@prisma/client";
+import { prisma } from "@/lib/prismaClient";
 import bcrypt from "bcryptjs";
-
-const prisma = new PrismaClient();
 
 export async function POST(req: Request) {
   try {
     const body = await req.json();
+    const { first_name, last_name, dui, address, gender, email, password, accept_terms, accept_privacy, role_id } = body;
 
-    const {
-      name,
-      lastName,
-      dui,
-      address,
-      dob,
-      gender,
-      email,
-      password,
-      terms,
-      privacy,
-    } = body;
-
-    if (!email || !password) {
-      return NextResponse.json(
-        { error: "Email and password are required" },
-        { status: 400 }
-      );
+    if (!first_name || !last_name || !dui || !email || !password || !accept_terms || !accept_privacy) {
+      return NextResponse.json({ error: "Todos los campos obligatorios deben estar completos" }, { status: 400 });
     }
 
+    // Validar rol
+    const validRoles = [1, 2, 3];
+    const finalRoleId = validRoles.includes(role_id) ? role_id : 1;
+
+    // Hash de contraseña
     const hashedPassword = await bcrypt.hash(password, 10);
 
     const user = await prisma.users.create({
       data: {
-        first_name: name,
-        last_name: lastName,
+        first_name,
+        last_name,
         dui,
-        address,
-        date_of_birth: new Date(dob),
-        gender,
+        address: address || "",
+        gender, // debe ser "Male" o "Female"
         email,
         password: hashedPassword,
-        accept_terms: terms,
-        accept_privacy: privacy,
+        accept_terms,
+        accept_privacy,
+        role_id: finalRoleId,
       },
     });
 
     return NextResponse.json({ userId: user.user_id }, { status: 201 });
-  } catch (error: any) {
-    console.error(error);
-    return NextResponse.json({ error: "Internal Server Error" }, { status: 500 });
+  } catch (err: any) {
+    console.error(err);
+    const message = err.code === "P2002" ? "Email o DUI ya existe" : err.message || "Internal Server Error";
+    return NextResponse.json({ error: message }, { status: 500 });
   }
 }
