@@ -2,156 +2,226 @@
 
 import { useState } from "react";
 
+type FormData = {
+  first_name: string;
+  last_name: string;
+  dui: string;
+  address: string;
+  gender: "Male" | "Female";
+  email: string;
+  password: string;
+  accept_terms: boolean;
+  accept_privacy: boolean;
+  role_id: number;
+};
+
+const initialForm: FormData = {
+  first_name: "",
+  last_name: "",
+  dui: "",
+  address: "",
+  gender: "Male",
+  email: "",
+  password: "",
+  accept_terms: false,
+  accept_privacy: false,
+  role_id: 1,
+};
+
 export default function RegisterPage() {
-  const [form, setForm] = useState({
-    name: "",
-    lastName: "",
-    dui: "",
-    address: "",
-    dob: "",
-    gender: "Male",
-    email: "",
-    phone: "",
-    password: "",
-    terms: false,
-    privacy: false,
-  });
+  const [form, setForm] = useState<FormData>(initialForm);
 
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLSelectElement>
-  ) => {
-    const { name, value, type } = e.target;
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+    const { name, type, value } = e.target;
+    const checked = type === "checkbox" ? (e.target as HTMLInputElement).checked : undefined;
 
-    setForm((prev) => ({
+    setForm(prev => ({
       ...prev,
-      [name]:
-        type === "checkbox"
-          ? (e.target as HTMLInputElement).checked
-          : value,
+      [name]: type === "checkbox" ? checked! : name === "role_id" ? Number(value) : value,
     }));
   };
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log("📩 Datos enviados:", form);
-    alert("✅ Cuenta creada!");
+
+    if (!form.accept_terms || !form.accept_privacy) {
+      alert("Debes aceptar los términos y la política de privacidad.");
+      return;
+    }
+
+    if (!form.email.includes("@")) {
+      alert("Ingresa un correo válido");
+      return;
+    }
+
+    if (form.password.length < 6) {
+      alert("La contraseña debe tener al menos 6 caracteres");
+      return;
+    }
+
+    try {
+      const res = await fetch("/api/register", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(form),
+      });
+
+      const data: { userId?: number; error?: string } = await res.json();
+
+      if (res.ok && data.userId) {
+        alert(`Cuenta creada! ID: ${data.userId}`);
+        setForm(initialForm);
+      } else {
+        alert(`Error: ${data.error || "Algo salió mal"}`);
+      }
+    } catch (err) {
+      console.error(err);
+      alert("Ocurrió un error");
+    }
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center  from-white-100  px-4">
-      <div className="relative max-w-md w-full bg-white shadow-xl rounded-2xl p-9">
-        <div className="flex flex-col items-start mb-0 -ml-10">
+    <div className="flex min-h-screen bg-gray-100 items-center justify-center">
+      <div className="w-full max-w-md p-8 bg-white rounded-2xl shadow-lg space-y-6">
+        {/* Logo */}
+        <div className="flex justify-center">
           <img
-            src="./agrored img.svg"
-            alt="Logo"
-            className="w-38 h-38"
+            src="/Agrored-1-removebg-preview.png"
+            alt="agrored"
+            className="w-32 h-17 object-contain"
           />
         </div>
-        <h1 className="text-3xl font-bold text-center w-full -mt-10 mb-8">Create account</h1> 
 
-        <form onSubmit={handleSubmit} className="grid grid-cols-2 gap-4">
-          <div>
-            <label className="text-sm font-medium">Name</label>
-            <input
-              name="name"
-              value={form.name}
-              onChange={handleChange}
-              className="w-full border p-1 rounded-lg focus:ring-2 focus:ring-green-500"
-            />
-          </div>
-          <div>
-            <label className="text-sm font-medium">Last name</label>
-            <input
-              name="lastName"
-              value={form.lastName}
-              onChange={handleChange}
-              className="w-full border p-1 rounded-lg focus:ring-2 focus:ring-green-500"
-            />
-          </div>
+        {/* Título */}
+        <h1 className="text-3xl font-bold text-center text-black">
+          Crear Cuenta
+        </h1>
+        <p className="text-center text-gray-600">Completa el formulario para registrarte</p>
 
-          <div>
-            <label className="text-sm font-medium">DUI</label>
+        {/* Formulario */}
+        <form onSubmit={handleSubmit} className="space-y-4">
+          <div className="grid grid-cols-2 gap-4">
             <input
-              name="dui"
-              value={form.dui}
+              name="first_name"
+              value={form.first_name}
               onChange={handleChange}
-              className="w-full border p-1 rounded-lg focus:ring-2 focus:ring-green-500"
+              placeholder="Nombre"
+              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-black"
+              required
             />
-          </div>
-          <div>
-            <label className="text-sm font-medium">Address</label>
             <input
-              name="address"
-              value={form.address}
+              name="last_name"
+              value={form.last_name}
               onChange={handleChange}
-              className="w-full border p-1 rounded-lg focus:ring-2 focus:ring-green-500"
+              placeholder="Apellido"
+              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-black"
+              required
             />
           </div>
 
-          <div>
-            <label className="text-sm font-medium">Date of birth</label>
-            <input
-              type="date"
-              name="dob"
-              value={form.dob}
-              onChange={handleChange}
-              className="w-full border p-1 rounded-lg focus:ring-2 focus:ring-green-500"
-            />
-          </div>
-          <div>
-            <label className="text-sm font-medium">Gender</label>
-            <select
-              name="gender"
-              value={form.gender}
-              onChange={handleChange}
-              className="w-full border p-1 rounded-lg focus:ring-2 focus:ring-green-500"
-            >
-              <option>Male</option>
-              <option>Female</option>
-            </select>
-          </div>
+          <input
+            name="dui"
+            value={form.dui}
+            onChange={handleChange}
+            placeholder="DUI"
+            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-black"
+            required
+          />
 
-          <div className="col-span-2">
-            <label className="text-sm font-medium">Email</label>
-            <input
-              type="email"
-              name="email"
-              value={form.email}
-              onChange={handleChange}
-              className="w-full border p-1 rounded-lg focus:ring-2 focus:ring-green-500"
-            />
-          </div>
+          <input
+            name="address"
+            value={form.address}
+            onChange={handleChange}
+            placeholder="Dirección"
+            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-black"
+          />
 
-          <div>
-            <label className="text-sm font-medium">Phone Number</label>
-            <input
-              type="tel"
-              name="phone"
-              value={form.phone}
-              onChange={handleChange}
-              className="w-full border p-1 rounded-lg focus:ring-2 focus:ring-green-500"
-            />
-          </div>
-          <div>
-            <label className="text-sm font-medium">Password</label>
-            <input
-              type="password"
-              name="password"
-              value={form.password}
-              onChange={handleChange}
-              className="w-full border p-1 rounded-lg focus:ring-2 focus:ring-green-500"
-            />
+          <select
+            name="gender"
+            value={form.gender}
+            onChange={handleChange}
+            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-black"
+          >
+            <option value="Male">Masculino</option>
+            <option value="Female">Femenino</option>
+          </select>
+
+          <input
+            type="email"
+            name="email"
+            value={form.email}
+            onChange={handleChange}
+            placeholder="Correo electrónico"
+            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-black"
+            required
+          />
+
+          <input
+            type="password"
+            name="password"
+            value={form.password}
+            onChange={handleChange}
+            placeholder="Contraseña"
+            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-black"
+            required
+          />
+
+          <select
+            name="role_id"
+            value={form.role_id}
+            onChange={handleChange}
+            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-black"
+          >
+            <option value={1}>Buyer</option>
+            <option value={2}>Seller</option>
+            <option value={3}>Administrator</option>
+          </select>
+
+          <div className="space-y-2">
+            <label className="flex items-center space-x-2">
+              <input
+                type="checkbox"
+                name="accept_terms"
+                checked={form.accept_terms}
+                onChange={handleChange}
+                className="w-4 h-4"
+              />
+              <span>Acepto los términos</span>
+            </label>
+
+            <label className="flex items-center space-x-2">
+              <input
+                type="checkbox"
+                name="accept_privacy"
+                checked={form.accept_privacy}
+                onChange={handleChange}
+                className="w-4 h-4"
+              />
+              <span>Acepto la política de privacidad</span>
+            </label>
           </div>
 
           <button
             type="submit"
-            className="col-span-2 bg-[#55A605] text-white p-3 rounded-lg"
+            className="w-full bg-black text-white font-semibold px-4 py-3 rounded-lg hover:bg-gray-800 transition disabled:bg-gray-400"
+            disabled={!form.accept_terms || !form.accept_privacy}
           >
-            Create account
+            Crear cuenta
           </button>
         </form>
+
+        <div className="text-center mt-4">
+          <p className="text-sm text-gray-600">
+            ¿Ya tienes cuenta?{" "}
+            <a
+              href="/login"
+              className="text-black font-medium hover:underline hover:text-gray-800"
+            >
+              Iniciar sesión
+            </a>
+          </p>
+        </div>
       </div>
     </div>
   );
 }
-
