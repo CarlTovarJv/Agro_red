@@ -46,8 +46,6 @@ export default function ProfilePage() {
       <p><strong>Nombre:</strong> {user.first_name} {user.last_name}</p>
       <p><strong>Email:</strong> {user.email}</p>
       <p><strong>DUI:</strong> {user.dui}</p>
-      <p><strong>Dirección:</strong> {user.address}</p>
-      <p><strong>Género:</strong> {user.gender}</p>
       <p><strong>Rol:</strong>{" "}{user.role_id === 1? "Buyer": user.role_id === 2? "Seller": user.role_id === 3? "Admin": "Desconocido"}
 </p>
     </div>

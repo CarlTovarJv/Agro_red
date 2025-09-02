@@ -10,7 +10,6 @@ export default function Navbar() {
       style={{ height: 48 }}
     >
       <div className="max-w-8xl mx-auto ml-6 h-full flex items-center justify-between px-4 relative">
-        {/* Left: menu + logo */}
         <div className="flex items-center gap-3">
           <Image src="/menu.svg" className="cursor-pointer" alt="Menu" width={28} height={28} />
           <Image className="cursor-pointer"
@@ -21,7 +20,6 @@ export default function Navbar() {
           />
         </div>
 
-        {/* Center: search */}
         <div
           className="absolute left-1/2 transform -translate-x-1/2"
           style={{ width: 400}}

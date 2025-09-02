@@ -5,7 +5,7 @@ import bcrypt from "bcryptjs";
 export async function POST(req: Request) {
   try {
     const body = await req.json();
-    const { first_name, last_name, dui, address, gender, email, password, accept_terms, accept_privacy, role_id } = body;
+    const { first_name, last_name, dui, email, password, accept_terms, accept_privacy, role_id } = body;
 
     if (!first_name || !last_name || !dui || !email || !password || !accept_terms || !accept_privacy) {
       return NextResponse.json({ error: "Todos los campos obligatorios deben estar completos" }, { status: 400 });
@@ -23,8 +23,6 @@ export async function POST(req: Request) {
         first_name,
         last_name,
         dui,
-        address: address || "",
-        gender, // debe ser "Male" o "Female"
         email,
         password: hashedPassword,
         accept_terms,

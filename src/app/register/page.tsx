@@ -6,8 +6,6 @@ type FormData = {
   first_name: string;
   last_name: string;
   dui: string;
-  address: string;
-  gender: "Male" | "Female";
   email: string;
   password: string;
   accept_terms: boolean;
@@ -19,8 +17,6 @@ const initialForm: FormData = {
   first_name: "",
   last_name: "",
   dui: "",
-  address: "",
-  gender: "Male",
   email: "",
   password: "",
   accept_terms: false,
@@ -69,7 +65,7 @@ export default function RegisterPage() {
       const data: { userId?: number; error?: string } = await res.json();
 
       if (res.ok && data.userId) {
-        alert(`Cuenta creada! ID: ${data.userId}`);
+        alert(`Cuenta creada exitosamente`);
         setForm(initialForm);
       } else {
         alert(`Error: ${data.error || "Algo salió mal"}`);
@@ -83,7 +79,7 @@ export default function RegisterPage() {
   return (
     <div className="flex min-h-screen bg-gray-100 items-center justify-center">
       <div className="w-full max-w-md p-8 bg-white rounded-2xl shadow-lg space-y-6">
-        {/* Logo */}
+
         <div className="flex justify-center">
           <img
             src="/Agrored-1-removebg-preview.png"
@@ -92,13 +88,12 @@ export default function RegisterPage() {
           />
         </div>
 
-        {/* Título */}
         <h1 className="text-3xl font-bold text-center text-black">
           Crear Cuenta
         </h1>
         <p className="text-center text-gray-600">Completa el formulario para registrarte</p>
 
-        {/* Formulario */}
+
         <form onSubmit={handleSubmit} className="space-y-4">
           <div className="grid grid-cols-2 gap-4">
             <input
@@ -128,23 +123,6 @@ export default function RegisterPage() {
             required
           />
 
-          <input
-            name="address"
-            value={form.address}
-            onChange={handleChange}
-            placeholder="Dirección"
-            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-black"
-          />
-
-          <select
-            name="gender"
-            value={form.gender}
-            onChange={handleChange}
-            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-black"
-          >
-            <option value="Male">Masculino</option>
-            <option value="Female">Femenino</option>
-          </select>
 
           <input
             type="email"
@@ -174,7 +152,6 @@ export default function RegisterPage() {
           >
             <option value={1}>Buyer</option>
             <option value={2}>Seller</option>
-            <option value={3}>Administrator</option>
           </select>
 
           <div className="space-y-2">
