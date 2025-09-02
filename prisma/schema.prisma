@@ -18,8 +18,6 @@ model users {
   first_name     String
   last_name      String
   dui            String   @unique
-  address        String?
-  gender         users_gender
   email          String   @unique
   password       String
   accept_terms   Boolean
@@ -33,16 +31,18 @@ model users {
 model products {
   product_id    Int             @id @default(autoincrement())
   product_name  String
-  description   String?
   price         Decimal
+  image_url     String         
   created_at    DateTime        @default(now())
   updated_at    DateTime        @updatedAt
   seller_id     Int
+
   order_details order_details[]
   seller        users           @relation("SellerProducts", fields: [seller_id], references: [user_id])
 
   @@index([seller_id])
 }
+
 
 model orders {
   order_id      Int             @id @default(autoincrement())
@@ -67,11 +67,6 @@ model order_details {
 
   @@index([order_id])
   @@index([product_id])
-}
-
-enum users_gender {
-  Male
-  Female
 }
 
 enum order_status {
