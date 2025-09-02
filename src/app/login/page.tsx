@@ -8,14 +8,14 @@ export default function LoginPage() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("📩 Login datos:", { email, password });
-    alert("✅ Bienvenido!");
+    console.log("Login datos:", { email, password });
+    alert(" Bienvenido!");
   };
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-100">
       <div className="w-full max-w-md p-8 bg-white rounded-2xl shadow-lg space-y-6">
-        {/* Logo */}
+
         <div className="flex justify-center">
           <img
             src="/Agrored-1-removebg-preview.png"
@@ -24,13 +24,11 @@ export default function LoginPage() {
           />
         </div>
 
-        {/* Título */}
         <h1 className="text-3xl font-bold text-center text-black">
           Welcome Back
         </h1>
         <p className="text-center text-gray-600">Sign in to your account</p>
 
-        {/* Formulario */}
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
             <label className="block text-sm font-medium text-black mb-1">
@@ -69,12 +67,11 @@ export default function LoginPage() {
             </a>
           </div>
 
-          <button
-            type="submit"
-            className="w-full py-3 bg-black hover:bg-gray-800 text-white font-semibold rounded-lg transition-colors"
-          >
-            Login
-          </button>
+          <a
+          href="/Pagina"
+          className="w-full block py-3 bg-black hover:bg-gray-800 text-white font-semibold rounded-lg text-center transition-colors">
+          Login
+          </a>
 
           <div className="text-center mt-4">
             <p className="text-sm text-gray-600">
@@ -92,4 +89,3 @@ export default function LoginPage() {
     </div>
   );
 }
-
