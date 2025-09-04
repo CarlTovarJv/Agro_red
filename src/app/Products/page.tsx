@@ -5,10 +5,13 @@ export default async function ProductsPage() {
 
   const products = await prisma.products.findMany();
 
-  const plainProducts = products.map((p) => ({
+  const plainProducts = products.map((p: any) => ({
     ...p,
     price: Number(p.price),
   }));
 
   return <ProductsPageClient products={plainProducts} />;
 }
+
+
+
