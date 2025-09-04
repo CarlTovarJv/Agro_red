@@ -74,7 +74,7 @@ export default function LandingPage() {
 
             <section className="flex justify-center gap-6 px-6 mb-30">
 
-                {["/person1.jpg", "/woman.jpeg", "/man.jpeg"].map((img, i) => (
+                {["/person1.jpg", "/mujer.jpeg", "/hombre.jpeg"].map((img, i) => (
                     <div key={i} className="relative">
                         <img
                             src={img}
@@ -104,7 +104,7 @@ export default function LandingPage() {
                     </div>
 
                     <div className="border rounded-lg bg-white shadow hover:shadow-lg transition-transform hover:scale-105 p-6 flex flex-col items-center text-center">
-                        <img src="/deal.svg" alt="Deals" className="w-20 h-20 mb-4" />
+                        <img src="/Deals.svg" alt="Deals" className="w-20 h-20 mb-4" />
                         <h3 className="font-semibold text-lg">Deals</h3>
                         <p className="text-gray-600 text-sm mt-2">
                             Products guarantee and assured quality.
@@ -112,7 +112,7 @@ export default function LandingPage() {
                     </div>
 
                     <div className="border rounded-lg bg-white shadow hover:shadow-lg transition-transform hover:scale-105 p-6 flex flex-col items-center text-center">
-                        <img src="/logistic.svg" alt="Logistic" className="w-20 h-20 mb-4" />
+                        <img src="/Logistic.svg" alt="Logistic" className="w-20 h-20 mb-4" />
                         <h3 className="font-semibold text-lg">Logistic</h3>
                         <p className="text-gray-600 text-sm mt-2">
                             Trouble-free agricultural products managed.

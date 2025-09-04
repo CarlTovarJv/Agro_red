@@ -42,7 +42,7 @@ export default function Home() {
           
           <div className="flex justify-center">
             <Image
-              src="./team-work.svg" 
+              src="./team.svg" 
               alt="Mission Illustration"
               width={400}
               height={400}
