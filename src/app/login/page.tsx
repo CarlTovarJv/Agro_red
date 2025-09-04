@@ -68,7 +68,7 @@ export default function LoginPage() {
           </div>
 
           <a
-          href="/Pagina"
+          href="/"
           className="w-full block py-3 bg-black hover:bg-gray-800 text-white font-semibold rounded-lg text-center transition-colors">
           Login
           </a>
