@@ -20,7 +20,7 @@ export default function PricingSection() {
 />
               <h3 className="text-xl font-semibold text-gray-900">Beanmium</h3>
               <p className="text-2xl font-bold mt-2">
-                $19.99<span className="text-base font-normal">/mes</span>
+                $39.99<span className="text-base font-normal">/mes</span>
               </p>
 
               <ul className="mt-6 space-y-3 text-gray-700">
@@ -61,7 +61,7 @@ export default function PricingSection() {
 
               <h3 className="text-xl font-semibold text-gray-900">Great Orange</h3>
               <p className="text-2xl font-bold mt-2">
-                $29.99<span className="text-base font-normal">/mes</span>
+                $79.99<span className="text-base font-normal">/mes</span>
               </p>
 
               <ul className="mt-6 space-y-3 text-gray-700">

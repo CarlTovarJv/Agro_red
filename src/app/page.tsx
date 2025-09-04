@@ -5,12 +5,12 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 
-
 export default function LandingPage() {
     return (
-        <main className="bg-white">
+        <main className="bg-[#FAFAFA]">
 
-            <section className="w-full max-w-5xl mx-auto my-6">
+            {/* Carrusel pegado al navbar */}
+            <section className="w-full max-w-5xl mx-auto">
                 <Swiper
                     modules={[Navigation, Pagination]}
                     navigation
@@ -43,38 +43,37 @@ export default function LandingPage() {
             </section>
 
             <style jsx>{`
-        :global(.swiper-button-next),
-        :global(.swiper-button-prev) {
-            color: #55A605;
-            font-size: 20px;
-            width: 32px;
-            height: 32px;
-        }
-        :global(.swiper-button-next:hover),
-        :global(.swiper-button-prev:hover) {
-            color: #3e7d04;
-        }
-        :global(.swiper-pagination-bullet) {
-            background: #d1d5db;
-            opacity: 0.7;
-        }
-        :global(.swiper-pagination-bullet-active) {
-            background: #55A605;
-            opacity: 1;
-        }
-    `}</style>
+                :global(.swiper-button-next),
+                :global(.swiper-button-prev) {
+                    color: #55A605;
+                    font-size: 20px;
+                    width: 32px;
+                    height: 32px;
+                }
+                :global(.swiper-button-next:hover),
+                :global(.swiper-button-prev:hover) {
+                    color: #3e7d04;
+                }
+                :global(.swiper-pagination-bullet) {
+                    background: #d1d5db;
+                    opacity: 0.7;
+                }
+                :global(.swiper-pagination-bullet-active) {
+                    background: #55A605;
+                    opacity: 1;
+                }
+            `}</style>
 
-
-            <section className="text-center px-6 py-10">
+            {/* Sección de texto con separación controlada */}
+            <section className="text-center px-6 py-10 mt-6">
                 <h2 className="text-2xl md:text-5xl font-bold text-gray-900">
                     They faced the same, <br /> we provided the solution
                 </h2>
             </section>
 
-
+            {/* Sección de personas */}
             <section className="flex justify-center gap-6 px-6 mb-30">
-
-                {["/person1.jpg", "/mujer.jpeg", "/hombre.jpeg"].map((img, i) => (
+                {["/person1.jpg", "/woman.jpeg", "/man.jpeg"].map((img, i) => (
                     <div key={i} className="relative">
                         <img
                             src={img}
@@ -88,7 +87,7 @@ export default function LandingPage() {
                 ))}
             </section>
 
-
+            {/* Sección de servicios */}
             <section className="text-center px-6 py-12 mb-30">
                 <h2 className="text-2xl md:text-5xl font-bold text-gray-900">
                     Everything we offer, <br /> in one place
@@ -121,8 +120,8 @@ export default function LandingPage() {
                 </div>
             </section>
 
+            {/* Sección logística */}
             <section className="px-6 py-16">
-
                 <h2 className="text-2xl md:text-5xl font-bold text-center text-gray-900 mb-8">
                     Logistical solutions <br /> for everyone
                 </h2>
@@ -146,6 +145,8 @@ export default function LandingPage() {
                     </div>
                 </div>
             </section>
+
         </main>
     );
 }
+
