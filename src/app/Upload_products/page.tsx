@@ -126,7 +126,7 @@ export default function UploadProduct() {
             <div>
               <button
                 type="submit"
-                className="w-full h-14 bg-black text-white rounded-md hover:bg-gray-800 transition"
+                className="w-full h-14 bg-[#55A605] text-white rounded-md "
               >
                 Upload
               </button>
@@ -138,7 +138,7 @@ export default function UploadProduct() {
             <p className="text-xs text-gray-500 mb-4 text-center">
               Upload photo of your products
             </p>
-            <label className="bg-black text-white px-2 py-3 rounded cursor-pointer text-center w-full max-w-28">
+            <label className="bg-[#55A605] text-white px-2 py-3 rounded cursor-pointer text-center w-full max-w-28">
               Add photo
               <input
                 type="file"
