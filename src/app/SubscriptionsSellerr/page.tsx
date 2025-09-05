@@ -23,7 +23,7 @@ export default function PricingSection() {
               />
 
 
-              <h3 className="text-xl font-semibold text-gray-900">Co-Agro</h3>
+              <h3 className="text-xl font-semibold text-gray-900">Beanmium</h3>
               <p className="text-2xl font-bold mt-2">
                 $39.99<span className="text-base font-normal">/mes</span>
               </p>
@@ -79,9 +79,9 @@ export default function PricingSection() {
                 className="w-15 h-15 rounded-full flex items-center justify-center mb-6"
               />
 
-              <h3 className="text-xl font-semibold text-gray-900">Pro-Agro</h3>
+              <h3 className="text-xl font-semibold text-gray-900">Great-Agro</h3>
               <p className="text-2xl font-bold mt-2">
-                $69.99<span className="text-base font-normal">/mes</span>
+                $79.99<span className="text-base font-normal">/mes</span>
               </p>
 
 

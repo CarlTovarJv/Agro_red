@@ -32,7 +32,7 @@ model products {
   product_id    Int             @id @default(autoincrement())
   product_name  String
   price         Decimal
-  image_url     String         
+  image_url     String?         
   created_at    DateTime        @default(now())
   updated_at    DateTime        @updatedAt
   seller_id     Int
@@ -67,7 +67,7 @@ model order_details {
 
   @@index([order_id])
   @@index([product_id])
-}
+}//Database
 
 enum order_status {
   Pending

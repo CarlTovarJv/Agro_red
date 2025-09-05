@@ -149,7 +149,7 @@ export default function PaymentDetailsForm({ onNextStep, onPreviousStep }: Props
                     </button>
                     <button
                         type="submit"
-                        className="px-6 py-3 bg-green-600 text-white font-bold rounded-lg hover:bg-green-700 transition-colors">
+                        className="px-6 py-3 bg-[#55A605] text-white font-bold rounded-lg hover:bg-green-700 transition-colors">
                         Next Step
                     </button>
                 </div>

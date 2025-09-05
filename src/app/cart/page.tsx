@@ -1,5 +1,7 @@
 "use client";
 
+import Link from "next/link";
+
 function CartPage() {
   const products = [
     { id: 1, name: "Round tomatoes", image: "./tomatoes.jpg", price: 35, subtotal: 70 },
@@ -36,7 +38,7 @@ function CartPage() {
               key={product.id}
               className="rounded-2xl bg-white shadow-md hover:shadow-lg transition w-full h-[190px] p-5 flex items-center gap-6"
             >
-           
+        
               <img
                 src={product.image}
                 alt={product.name}
@@ -121,9 +123,9 @@ function CartPage() {
             </div>
           </div>
 
-          <button className="w-full mt-8 bg-[#FF6E08] hover:bg-orange-500 transition text-white px-6 py-3 rounded-xl font-semibold shadow-lg">
+          <Link href="/Checkout"><button className="cursor-pointer w-full mt-8 bg-[#FF6E08] hover:bg-orange-500 transition text-white px-6 py-3 rounded-xl font-semibold shadow-lg">
             Proceed to Payment
-          </button>
+          </button></Link>
         </div>
       </div>
     </div>

@@ -32,7 +32,7 @@ export default function PreNavbar() {
         <div className="flex items-center gap-3">
           {/* Hamburger menu */}
           <button
-            className="text-gray-700 text-xl block"
+            className="text-gray-700 text-xl block cursor-pointer"
             onClick={() => setMenuOpen(!menuOpen)}
           >
             {menuOpen ? <FaTimes /> : <FaBars />}
@@ -78,15 +78,15 @@ export default function PreNavbar() {
         {/* Right: Premium + Cart + User */}
         <div className="flex items-center gap-4">
           {/* Get Premium */}
-          <Link href="/SubscriptionsSellerr">
-            <button className="px-4 py-2 bg-[#55A605] text-white text-sm font-semibold rounded-full shadow-md hover:bg-green-700 transition-colors duration-300 corsor-pointer">
+          <Link href="/Suscriptionsbuyers">
+            <button className="px-4 py-2 bg-[#55A605] text-white text-sm font-semibold rounded-full shadow-md hover:bg-green-700 transition-colors duration-300 cursor-pointer">
               Get Premium
             </button>
           </Link>
 
           {/* Cart button */}
           <Link href="/cart">
-            <button className="relative rounded-full p-2 bg-[#55A605] hover:bg-[#4E9505] transition-colors duration-300 shadow-md flex items-center justify-center">
+            <button className="relative rounded-full p-2 bg-[#55A605] hover:bg-[#4E9505] transition-colors duration-300 shadow-md flex items-center justify-center cursor-pointer">
               <Image
                 src="/shopping-cart.svg"
                 alt="Cart"

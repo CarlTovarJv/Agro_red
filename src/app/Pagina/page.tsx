@@ -23,11 +23,12 @@ function HomePage() {
           alt="Person 1"
           className="w-full h-60 rounded-lg object-cover shadow-lg"
         />
-        <img
-          src="/Person2.webp"
-          alt="Person 2"
-          className="w-full h-60 rounded-lg object-cover shadow-lg"
-        />
+       <img
+  src="/Person2.webp"
+  alt="Person 2"
+  className="w-full h-60 rounded-lg object-cover shadow-lg"
+/>
+
         <img
           src="/Person3.webp"
           alt="Person 3"

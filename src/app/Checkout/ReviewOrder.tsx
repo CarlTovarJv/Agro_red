@@ -116,7 +116,7 @@ return (
     type="button"
     onClick={handleConfirmOrder}
     disabled={state.isConfirming}
-    className={`px-6 py-3 bg-green-600 text-white font-bold rounded-lg hover:bg-green-700 transition-colors ${state.isConfirming ? 'opacity-50 cursor-not-allowed' : ''}`}>
+    className={`px-6 py-3 bg-[#55A605] text-white font-bold rounded-lg hover:bg-green-700 transition-colors ${state.isConfirming ? 'opacity-50 cursor-not-allowed' : ''}`}>
     {state.isConfirming ? 'Confirming...' : 'Place Order'}
     </button>
         </div>

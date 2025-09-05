@@ -10,7 +10,7 @@ export default function LandingPage() {
         <main className="bg-[#FAFAFA]">
 
             {/* Carrusel pegado al navbar */}
-            <section className="w-full max-w-5xl mx-auto">
+            <section className="w-full max-w-5xl mx-auto mt-5">
                 <Swiper
                     modules={[Navigation, Pagination]}
                     navigation
@@ -73,7 +73,7 @@ export default function LandingPage() {
 
             {/* Sección de personas */}
             <section className="flex justify-center gap-6 px-6 mb-30">
-                {["/person1.jpg", "/woman.jpeg", "/man.jpeg"].map((img, i) => (
+                {["/person1.jpg", "/vendors_img.jpg", "/person3.webp"].map((img, i) => (
                     <div key={i} className="relative">
                         <img
                             src={img}

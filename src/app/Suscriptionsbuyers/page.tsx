@@ -14,9 +14,9 @@ export default function PricingSection() {
           <div className="border rounded-2xl shadow-sm p-8 text-left hover:shadow-xl transition flex flex-col justify-between h-full">
             <div>
               <img
-             src="./beann.svg"
+              src="./beann.svg"
                 alt="Bean icon"
-               className="w-14 h-14 rounded-full flex items-center justify-center mb-6"
+              className="w-14 h-14 rounded-full flex items-center justify-center mb-6"
 />
               <h3 className="text-xl font-semibold text-gray-900">Beanmium</h3>
               <p className="text-2xl font-bold mt-2">
