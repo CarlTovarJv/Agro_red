@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
 import { FaBars, FaTimes } from "react-icons/fa";
+import { UserButton } from '@clerk/nextjs';
 
 // Rutas donde el navbar se oculta
 const HIDDEN_ROUTES = ["/login", "/register"];
@@ -27,12 +28,12 @@ export default function PreNavbar() {
   return (
     <header className="w-full bg-white border-b border-gray-200 shadow-sm relative h-16">
       <div className="max-w-8xl mx-auto h-full flex items-center justify-between px-6">
-        
+
         {/* Left: Hamburger + Logo */}
         <div className="flex items-center gap-3">
           {/* Hamburger menu */}
           <button
-            className="text-gray-700 text-xl block cursor-pointer"
+            className="text-gray-700 text-xl block cursor-pointer lg:hidden"
             onClick={() => setMenuOpen(!menuOpen)}
           >
             {menuOpen ? <FaTimes /> : <FaBars />}
@@ -46,6 +47,7 @@ export default function PreNavbar() {
               width={100}
               height={42}
               priority
+              className="cursor-pointer"
             />
           </Link>
         </div>
@@ -98,16 +100,9 @@ export default function PreNavbar() {
           </Link>
 
           {/* User profile */}
-          <Link href="/Perfil" className="rounded-full">
-            <Image
-              src="/Carlos.jpg"
-              alt="User"
-              width={28}
-              height={28}
-              className="cursor-pointer rounded-full"
-              priority
-            />
-          </Link>
+          <div className="w-12 h-12 lg:w-12 lg:h-12 transform scale-125 lg:scale-125 ml-2 mt-6 ">
+            <UserButton afterSignOutUrl="/" />
+          </div>
         </div>
       </div>
 
@@ -131,6 +126,8 @@ export default function PreNavbar() {
     </header>
   );
 }
+
+
 
 
 
