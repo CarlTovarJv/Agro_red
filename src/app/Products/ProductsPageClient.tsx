@@ -10,11 +10,11 @@ type Product = {
   image?: string;
   measures: {
     name: string;
-    price: number; // price per measure
+    price: number;
   }[];
 };
 
-const sampleProducts: Product[] = [
+const products: Product[] = [
   {
     id: 1,
     product_name: "Tomatoes",
@@ -22,9 +22,9 @@ const sampleProducts: Product[] = [
     image: "/tomatoes.jpg",
     measures: [
       { name: "Sack", price: 120 },
-      { name: "Ton", price: 2000 },
       { name: "Box", price: 30 },
-      { name: "Red", price: 5 },
+      { name: "Quintal", price: 400 },
+      { name: "Dozen", price: 5 },
     ],
   },
   {
@@ -34,8 +34,9 @@ const sampleProducts: Product[] = [
     image: "/potatoes.jpg",
     measures: [
       { name: "Sack", price: 100 },
-      { name: "Ton", price: 1800 },
       { name: "Box", price: 25 },
+      { name: "Quintal", price: 350 },
+      { name: "Dozen", price: 4 },
     ],
   },
   {
@@ -46,6 +47,8 @@ const sampleProducts: Product[] = [
     measures: [
       { name: "Sack", price: 80 },
       { name: "Box", price: 20 },
+      { name: "Quintal", price: 300 },
+      { name: "Dozen", price: 3 },
     ],
   },
   {
@@ -54,9 +57,10 @@ const sampleProducts: Product[] = [
     description: "Golden corn from El Salvador",
     image: "/corn.webp",
     measures: [
-      { name: "Ton", price: 2200 },
+      { name: "Sack", price: 150 },
       { name: "Box", price: 35 },
-      { name: "Red", price: 6 },
+      { name: "Quintal", price: 500 },
+      { name: "Dozen", price: 6 },
     ],
   },
   {
@@ -67,15 +71,21 @@ const sampleProducts: Product[] = [
     measures: [
       { name: "Sack", price: 110 },
       { name: "Box", price: 28 },
-      { name: "Red", price: 5 },
+      { name: "Quintal", price: 380 },
+      { name: "Dozen", price: 5 },
     ],
   },
   {
     id: 6,
     product_name: "Cucumber",
-    description: "Green and fresh Cucumber",
+    description: "Green and fresh cucumber",
     image: "/cucumber.jpeg",
-    measures: [{ name: "Box", price: 60 }],
+    measures: [
+      { name: "Sack", price: 90 },
+      { name: "Box", price: 22 },
+      { name: "Quintal", price: 320 },
+      { name: "Dozen", price: 4 },
+    ],
   },
   {
     id: 7,
@@ -83,8 +93,10 @@ const sampleProducts: Product[] = [
     description: "Fresh cabbage heads",
     image: "/cabagge.jpg",
     measures: [
-      { name: "Sack", price: 90 },
+      { name: "Sack", price: 95 },
       { name: "Box", price: 20 },
+      { name: "Quintal", price: 340 },
+      { name: "Dozen", price: 4 },
     ],
   },
   {
@@ -93,20 +105,20 @@ const sampleProducts: Product[] = [
     description: "Sweet bananas for desserts",
     image: "/banana.jpg",
     measures: [
-      { name: "Ton", price: 1500 },
+      { name: "Sack", price: 130 },
       { name: "Box", price: 40 },
+      { name: "Quintal", price: 450 },
+      { name: "Dozen", price: 6 },
     ],
   },
 ];
 
 export default function ProductsPageClient() {
   const [search, setSearch] = useState("");
-  const [selectedMeasures, setSelectedMeasures] = useState<{ [key: number]: string }>(
-    {}
-  );
+  const [selectedMeasures, setSelectedMeasures] = useState<{ [key: number]: string }>({});
   const [quantities, setQuantities] = useState<{ [key: number]: number }>({});
 
-  const filteredProducts = sampleProducts.filter((p) =>
+  const filteredProducts = products.filter((p) =>
     p.product_name.toLowerCase().includes(search.toLowerCase())
   );
 
@@ -127,6 +139,36 @@ export default function ProductsPageClient() {
     return (measure?.price ?? 0) * quantity;
   };
 
+  const handleBuy = (product: Product) => {
+    const measure = selectedMeasures[product.id] || product.measures[0].name;
+    const quantity = quantities[product.id] || 1;
+    const price = product.measures.find((m) => m.name === measure)?.price || 0;
+
+    const cart = JSON.parse(localStorage.getItem("cart") || "[]");
+
+    const existingIndex = cart.findIndex(
+      (item: any) => item.id === product.id && item.measure === measure
+    );
+
+    if (existingIndex >= 0) {
+      cart[existingIndex].quantity += quantity;
+      cart[existingIndex].subtotal = cart[existingIndex].quantity * price;
+    } else {
+      cart.push({
+        id: product.id,
+        name: product.product_name,
+        image: product.image,
+        measure,
+        quantity,
+        price,
+        subtotal: price * quantity,
+      });
+    }
+
+    localStorage.setItem("cart", JSON.stringify(cart));
+    alert(`${product.product_name} added to cart!`);
+  };
+
   return (
     <div className="max-w-6xl mx-auto px-4 py-6">
       {/* Search Bar */}
@@ -143,9 +185,9 @@ export default function ProductsPageClient() {
 
       {/* Products Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-        {filteredProducts.map((product, index) => (
+        {filteredProducts.map((product) => (
           <div
-            key={product.id ?? index}
+            key={product.id}
             className="bg-white rounded-2xl shadow-md hover:shadow-lg transition-transform hover:scale-105 overflow-hidden flex flex-col"
           >
             <img
@@ -190,7 +232,10 @@ export default function ProductsPageClient() {
                 <span className="text-[#55A605] font-bold text-lg">
                   ${getPrice(product)}
                 </span>
-                <button className="bg-[#55A605] text-white px-4 py-1 rounded-full text-sm hover:bg-green-700 transition-colors">
+                <button
+                  onClick={() => handleBuy(product)}
+                  className="bg-[#55A605] text-white px-4 py-1 rounded-full text-sm hover:bg-green-700 transition-colors"
+                >
                   Buy
                 </button>
               </div>
@@ -207,7 +252,3 @@ export default function ProductsPageClient() {
 }
 
 ProductsPageClient.hideHeader = true;
-
-
-
-
