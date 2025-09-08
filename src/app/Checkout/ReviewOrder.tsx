@@ -168,7 +168,7 @@ export default function ReviewOrder({
           type="button"
           onClick={handleConfirmOrder}
           disabled={state.isConfirming}
-          className={`px-6 py-3 bg-[#55A605] text-white font-bold rounded-lg hover:bg-green-700 transition-colors ${
+          className={`px-6 py-3 bg-[#55A605] text-white font-bold rounded-lg hover:bg-green-800 transition-colors ${
             state.isConfirming ? "opacity-50 cursor-not-allowed" : ""
           }`}
         >
