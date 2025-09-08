@@ -39,8 +39,8 @@ export default function PaymentDetailsForm({ onNextStep, onPreviousStep }: Props
     onNextStep();
   };
 
-  // Clase para todos los inputs: borde gris-600 al enfocar, halo gris claro
-  const inputClass = "mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:outline-none focus:border-gray-600 focus:ring focus:ring-gray-200 focus:ring-opacity-50 px-3 py-2 text-lg";
+  // Clase base para todos los inputs: borde gris oscuro al enfocar, halo gris, tamaño más grande
+  const inputClass = "mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:outline-none focus:border-gray-600 focus:ring focus:ring-gray-600 focus:ring-opacity-50 px-3 py-2 text-lg";
 
   return (
     <div className="w-full p-8 bg-white rounded-lg shadow-md border border-gray-200">
@@ -160,4 +160,4 @@ export default function PaymentDetailsForm({ onNextStep, onPreviousStep }: Props
       </form>
     </div>
   );
-}
+}//no tocar
