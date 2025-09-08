@@ -23,7 +23,7 @@ const products: Product[] = [
     measures: [
       { name: "Sack", price: 120 },
       { name: "Box", price: 30 },
-      { name: "Quintal", price: 400 },
+      { name: "Quintal", price: 110 },
       { name: "Dozen", price: 5 },
     ],
   },
@@ -33,9 +33,9 @@ const products: Product[] = [
     description: "Organic potatoes from local farms",
     image: "/potatoes.jpg",
     measures: [
-      { name: "Sack", price: 100 },
+      { name: "Sack", price: 7 },
       { name: "Box", price: 25 },
-      { name: "Quintal", price: 350 },
+      { name: "Quintal", price: 40 },
       { name: "Dozen", price: 4 },
     ],
   },
@@ -46,7 +46,7 @@ const products: Product[] = [
     image: "/carrots.jpg",
     measures: [
       { name: "Sack", price: 80 },
-      { name: "Box", price: 20 },
+      { name: "Box", price: 40 },
       { name: "Quintal", price: 300 },
       { name: "Dozen", price: 3 },
     ],

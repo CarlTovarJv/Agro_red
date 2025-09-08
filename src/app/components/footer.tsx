@@ -1,12 +1,32 @@
+"use client";
+
 import { Instagram, Facebook, Linkedin, Globe, MapPin } from "lucide-react";
+import Img from "next/image";
+import { usePathname } from 'next/navigation';
+
 
 function Footer() {
+  const pathname = usePathname();
+
+  // Oculta el Footer en login, signup y select-account
+  if (
+    pathname === "/login" || 
+    pathname === "/signup" || 
+    pathname === "/SelectAccount"
+  ) return null;
+
   return (
     <footer className="text-white bg-black w-full py-8">
       <div className="px-20">
 
         <div className="flex items-center">
-          <img src="Logo_Blanco.svg" alt="Logo" className="w-40 h-40 inline-block -ml-10"/>
+          <Img 
+            src="AgroW.svg" 
+            alt="Logo" 
+            width={140} 
+            height={60} 
+            className="mb-10 mt-10 inline-block -ml-7"
+          />
         </div>
           
         <div className="grid grid-cols-3 gap-64 mb-8">
@@ -67,3 +87,4 @@ function Footer() {
 };
 
 export default Footer;
+

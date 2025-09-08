@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
 import { FaBars, FaTimes } from "react-icons/fa";
+import { UserButton } from "@clerk/nextjs";
 
 // Rutas donde el navbar se oculta
 const HIDDEN_ROUTES = ["/login", "/register"];
@@ -18,9 +19,9 @@ export default function PreNavbar() {
   const navLinks = [
     { name: "Home", href: "/" },
     { name: "Products", href: "/Products" },
+    { name: "MyOrders", href: "/Myproducts" },
     { name: "Reviews", href: "/review" },
     { name: "AboutUs", href: "/Aboutus" },
-    { name: "MyOrders", href: "/Myproducts" },
     { name: "ContactUs", href: "/Contactus" },
   ];
 
@@ -28,23 +29,15 @@ export default function PreNavbar() {
     <header className="w-full bg-white border-b border-gray-200 shadow-sm relative h-16">
       <div className="max-w-8xl mx-auto h-full flex items-center justify-between px-6">
         
-        {/* Left: Hamburger + Logo */}
         <div className="flex items-center gap-3">
-          {/* Hamburger menu */}
-          <button
-            className="text-gray-700 text-xl block cursor-pointer"
-            onClick={() => setMenuOpen(!menuOpen)}
-          >
-            {menuOpen ? <FaTimes /> : <FaBars />}
-          </button>
 
           {/* Logo */}
           <Link href="/">
             <Image
-              src="/Logo_C.svg"
+              src="/AgroC.svg"
               alt="AgroRed"
-              width={100}
-              height={42}
+              width={160}
+              height={60}
               priority
             />
           </Link>
@@ -79,7 +72,7 @@ export default function PreNavbar() {
         <div className="flex items-center gap-4">
           {/* Get Premium */}
           <Link href="/Suscriptionsbuyers">
-            <button className="px-4 py-2 bg-[#55A605] text-white text-sm font-semibold rounded-full shadow-md hover:bg-green-700 transition-colors duration-300 cursor-pointer">
+            <button className="px-4 py-2 bg-[#55A605] text-white text-sm font-semibold rounded-full shadow-md hover:bg-green-800 transition-colors duration-300 cursor-pointer">
               Get Premium
             </button>
           </Link>
@@ -98,16 +91,9 @@ export default function PreNavbar() {
           </Link>
 
           {/* User profile */}
-          <Link href="/Perfil" className="rounded-full">
-            <Image
-              src="/Carlos.jpg"
-              alt="User"
-              width={28}
-              height={28}
-              className="cursor-pointer rounded-full"
-              priority
-            />
-          </Link>
+          <div className="w-30 h-30 lg:w-12 lg:h-12 transform scale-150 lg:scale-145 ml-2 mt-8 mb-1">
+            <UserButton afterSignOutUrl="/" />
+          </div>
         </div>
       </div>
 

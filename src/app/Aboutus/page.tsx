@@ -5,16 +5,16 @@ export default function Home() {
     <main className="min-h-screen bg-white px-6 py-16">
       <div className="max-w-6xl mx-auto space-y-20">
 
-        
+        {/* Título centrado */}
+        <h1 className="text-3xl font-bold text-gray-900 mb-10 text-center">
+          About us
+        </h1>
+
+        {/* Sección 1 */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-        
           <div>
-            <p className="uppercase tracking-wider text-gray-500 text-sm mb-2">
-              About us
-            </p>
             <h2 className="text-3xl font-bold text-gray-900 leading-snug mb-4">
-              Empowering the fields to grow through the power of connection.{" "}
-              
+              Empowering the fields to grow through the power of connection
             </h2>
             <p className="text-gray-600">
               At Agrored, we believe in the power of the land and the importance 
@@ -25,24 +25,22 @@ export default function Home() {
             </p>
           </div>
 
-          
           <div className="flex justify-center">
             <Image
-              src="./connecting-teams_nnjy.svg" 
+              src="/connecting-teams_nnjy.svg" 
               alt="About Us Illustration"
-              width={400}
-              height={400}
+              width={350}
+              height={350}
               className="rounded-lg"
             />
           </div>
         </div>
 
-        
+        {/* Sección 2 */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-          
           <div className="flex justify-center">
             <Image
-              src="./team.svg" 
+              src="/team.svg" 
               alt="Mission Illustration"
               width={400}
               height={400}
@@ -50,7 +48,6 @@ export default function Home() {
             />
           </div>
 
-          
           <div>
             <h2 className="text-3xl font-bold text-gray-900 mb-4">
               Our mission
@@ -64,25 +61,24 @@ export default function Home() {
           </div>
         </div>
 
-
+        {/* Sección 3 */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-        
           <div>
-            
             <h2 className="text-3xl font-bold text-gray-900 leading-snug mb-4">
-              Our vision {" "}
-              
+              Our vision
             </h2>
             <p className="text-gray-600">
-              To become the leading network that transforms agriculture into a sustainable, innovative, and inclusive engine of growth, empowering rural communities and fostering a stronger connection between people and the land.
+              To become the leading network that transforms agriculture into a 
+              sustainable, innovative, and inclusive engine of growth, empowering 
+              rural communities and fostering a stronger connection between people 
+              and the land.
             </p>
           </div>
 
-          
           <div className="flex justify-center">
             <Image
-              src="./design-inspiration.svg" 
-              alt="About Us Illustration"
+              src="/design-inspiration.svg" 
+              alt="Vision Illustration"
               width={400}
               height={400}
               className="rounded-lg"
