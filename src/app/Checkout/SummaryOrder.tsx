@@ -14,14 +14,13 @@ type CartItem = {
 export default function SummaryOrder() {
   const [items, setItems] = useState<CartItem[]>([]);
 
-  // Cargar items desde localStorage
   useEffect(() => {
     const savedCart = JSON.parse(localStorage.getItem("cart") || "[]");
     setItems(savedCart);
   }, []);
 
   const subtotal = items.reduce((sum, item) => sum + item.subtotal, 0);
-  const shipping = subtotal > 0 ? 5 : 0; // ejemplo: $5 de envío si hay productos
+  const shipping = subtotal > 0 ? 100 : 0; 
   const total = subtotal + shipping;
 
   if (items.length === 0)
@@ -31,7 +30,6 @@ export default function SummaryOrder() {
     <div className="w-full max-w-sm p-6 bg-white rounded-lg shadow-md border border-gray-200">
       <h2 className="text-xl font-bold mb-4">Order Summary</h2>
 
-      {/* Productos */}
       <div className="mb-6 space-y-4">
         {items.map((item, index) => (
           <div key={index} className="flex items-center gap-4">
@@ -46,7 +44,7 @@ export default function SummaryOrder() {
         ))}
       </div>
 
-      {/* Totales */}
+
       <div className="space-y-2 text-gray-700">
         <div className="flex justify-between">
           <span>Subtotal</span>

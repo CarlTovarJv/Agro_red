@@ -18,18 +18,18 @@ export default function CheckoutProgress({ currentStep }: Props): JSX.Element {
             <h2 className="text-2xl font-bold mb-6 text-gray-800">Checkout</h2>
             <div className="flex items-center justify-between relative">
                 <div className="absolute top-1/2 left-0 right-0 h-1 bg-gray-200 -z-10"></div>
-                <div className={`absolute top-1/2 left-0 h-1 bg-green-500 -z-10 transition-all duration-500 ${currentStep === 1 ? 'w-[10%]' : currentStep === 2 ? 'w-[50%]' : 'w-full'}`}></div>
+                <div className={`absolute top-1/2 left-0 h-1 bg-[#55A605] -z-10 transition-all duration-500 ${currentStep === 1 ? 'w-[10%]' : currentStep === 2 ? 'w-[50%]' : 'w-full'}`}></div>
 
                 {steps.map((item) => (
                     <div key={item.step} className="flex flex-col items-center">
                         <div className={`w-8 h-8 rounded-full flex items-center justify-center text-white
-                        ${currentStep > item.step ? 'bg-green-500' : 'bg-gray-200 border-2 border-gray-300'}`}>
+                        ${currentStep > item.step ? 'bg-[#55A605]' : 'bg-gray-200 border-2 border-gray-300'}`}>
                             {currentStep > item.step ? <FaCheck size={16} /> : (
-                                <div className={`${currentStep === item.step ? 'w-4 h-4 rounded-full bg-green-500' : 'w-4 h-4 rounded-full bg-gray-400'}`}></div>
+                                <div className={`${currentStep === item.step ? 'w-4 h-4 rounded-full bg-[#55A605]' : 'w-4 h-4 rounded-full bg-gray-400'}`}></div>
                             )}
                         </div>
                         <span className={`mt-2 text-sm font-semibold whitespace-nowrap
-                        ${currentStep >= item.step ? 'text-green-700' : 'text-gray-500'}`}>
+                        ${currentStep >= item.step ? 'text-green-600' : 'text-gray-500'}`}>
                             {item.name}
                         </span>
                     </div>

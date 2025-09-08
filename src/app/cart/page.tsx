@@ -63,13 +63,13 @@ export default function CartPage() {
       <h2 className="text-4xl font-bold text-gray-900 mb-10 text-center">My Cart</h2>
 
       <div className="flex flex-col lg:flex-row justify-center items-start gap-10 max-w-7xl mx-auto">
-        {/* Lista de productos */}
+
         <div className="flex flex-col space-y-6 flex-1">
-          {cartItems.map((product) => (
+          {cartItems.map((product, index) => (
             <div
-              key={product.id}
-              className="rounded-2xl bg-white shadow-md hover:shadow-lg transition w-full h-[190px] p-5 flex items-center gap-6"
-            >
+             key={`${product.id}-${index}`} // ✅ ahora es único aunque el id se repita
+             className="rounded-2xl bg-white shadow-md hover:shadow-lg transition w-full h-[190px] p-5 flex items-center gap-6"
+               >
               <img
                 src={product.image || "/default-product.png"}
                 alt={product.name}
@@ -79,9 +79,9 @@ export default function CartPage() {
               <div className="flex flex-col flex-1 justify-between h-full">
                 <h3 className="text-xl font-semibold text-gray-800">{product.name}</h3>
 
-                {/* Cantidad y medida */}
+       
                 <div className="flex items-center gap-4 mt-2">
-                  {/* Cantidad */}
+       
                   <div className="flex items-center gap-4 border border-gray-300 px-3 py-1 rounded-lg w-fit shadow-sm">
                     <button
                       onClick={() =>
@@ -102,7 +102,7 @@ export default function CartPage() {
                     </button>
                   </div>
 
-                  {/* Medida */}
+            
                   <div className="relative w-[130px]">
                     <select
                       value={product.measure}
@@ -125,7 +125,6 @@ export default function CartPage() {
                     </div>
                   </div>
 
-                  {/* Botón eliminar */}
                   <button
                     onClick={() => handleRemove(product.id)}
                     className="flex items-center justify-center bg-[#FF6E08] transition text-white px-4 py-2 rounded-lg shadow-md"
@@ -134,7 +133,6 @@ export default function CartPage() {
                   </button>
                 </div>
 
-                {/* Precio y subtotal */}
                 <div className="flex justify-between mt-4">
                   <div>
                     <span className="text-sm text-gray-500">Price</span>
@@ -150,11 +148,9 @@ export default function CartPage() {
           ))}
         </div>
 
-        {/* Resumen de la orden */}
         <div className="w-full max-w-sm p-6 bg-white rounded-2xl shadow-md">
           <h2 className="text-2xl font-bold mb-6 text-gray-900">Order Summary</h2>
 
-          {/* Productos en resumen */}
           <div className="mb-6 space-y-4">
             {cartItems.map((item, index) => (
               <div key={index} className="flex items-center justify-between">
