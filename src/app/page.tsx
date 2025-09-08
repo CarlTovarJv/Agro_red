@@ -61,7 +61,7 @@ export default function LandingPage() {
                     <SwiperSlide>
                         <div className="relative h-full w-full flex items-center">
                             <img
-                                src="/Banner3.png"
+                                src="/Banner3 frutas.png"
                                 alt="Banner 3"
                                 className="absolute inset-0 w-full h-full object-cover "
                             />
@@ -99,7 +99,7 @@ export default function LandingPage() {
             </section>
 
 
-            <section className="px-6 py-8">
+            <section className="px-6 py-8 mb-8">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-6xl mx-auto">
                     <div className="relative bg-pink-100 rounded-xl p-6 flex items-center justify-between overflow-hidden">
                         <div className="z-10">
@@ -164,68 +164,78 @@ export default function LandingPage() {
             </section>
 
 
-            <section className="text-center px-6 py-20">
-                <h2 className="text-2xl md:text-5xl font-bold text-gray-900">
-                    They faced the same, <br /> we provided the solution
-                </h2>
+            <section className="w-full mb-15 px-6 flex justify-center rounded-lg mt-15">
+                <img src="/Reliability2.png" width={1150} alt="Banner" className="rounded-xl" />
             </section>
 
 
-            <section className="flex justify-center gap-6 px-6 py-12">
-                {["/person1.jpg", "/woman.jpeg", "/man.jpeg"].map((img, i) => (
-                    <div key={i} className="relative">
-                        <img
-                            src={img}
-                            alt={`Person ${i + 1}`}
-                            className="w-50 h-50 rounded-lg object-cover"
-                        />
-                        <button className="absolute bottom-2 right-2 bg-[#55A605] text-white w-6 h-6 rounded-full flex items-center justify-center">
-                            +
-                        </button>
-                    </div>
-                ))}
-            </section>
-
-
-            <section className="text-center px-6 py-20">
-                <h2 className="text-2xl md:text-5xl font-bold text-gray-900">
-                    Everything we offer, <br /> in one place
+            <section className="px-6 py-20 bg-[#FAFAFA]">
+                <h2 className="text-2xl md:text-5xl font-bold text-center mb-12">
+                    Everything we offer, in one place
                 </h2>
 
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-8 max-w-5xl mx-auto">
-                    <div className="rounded-lg bg-white shadow hover:shadow-lg transition-transform hover:scale-105 p-6 flex flex-col items-center text-center">
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-6xl mx-auto">
+                    {/* Card 1 */}
+                    <div className="relative rounded-2xl overflow-hidden shadow-lg group">
                         <img
-                            src="/shipment.svg"
-                            alt="Shipment"
-                            className="w-20 h-20 mb-4"
+                            src="/truck.jpg" 
+                            alt="Shipments"
+                            className="w-full h-[400px] object-cover group-hover:scale-105 transition-transform duration-500"
                         />
-                        <h3 className="font-semibold text-lg">Shipments</h3>
-                        <p className="text-gray-600 text-sm mt-2">
-                            Reliable shipping with quality guaranteed.
-                        </p>
+                        <div className="absolute inset-0 bg-black/40 group-hover:bg-black/50 transition"></div>
+                        <div className="absolute bottom-6 left-6 text-white">
+                            <h3 className="text-xl font-bold">Shipments</h3>
+                            <p className="mt-2 text-sm max-w-xs">
+                                Reliable shipping with quality guaranteed.
+                            </p>
+                            <button className="mt-4 bg-[#D7FF72] text-black text-sm px-4 py-2 rounded-full font-medium hover:bg-[#b5e65f] transition">
+                                Learn more →
+                            </button>
+                        </div>
                     </div>
 
-                    <div className="rounded-lg bg-white shadow hover:shadow-lg transition-transform hover:scale-105 p-6 flex flex-col items-center text-center">
-                        <img src="/deal.svg" alt="Deals" className="w-20 h-20 mb-4" />
-                        <h3 className="font-semibold text-lg">Deals</h3>
-                        <p className="text-gray-600 text-sm mt-2">
-                            Products guarantee and assured quality.
-                        </p>
-                    </div>
-
-                    <div className="rounded-lg bg-white shadow hover:shadow-lg transition-transform hover:scale-105 p-6 flex flex-col items-center text-center">
+                    {/* Card 2 */}
+                    <div className="relative rounded-2xl overflow-hidden shadow-lg group">
                         <img
-                            src="/logistic.svg"
+                            src="/hands.jpg" // Usa otra imagen real (ej. agricultores, mercado, trato)
+                            alt="Deals"
+                            className="w-full h-[400px] object-cover group-hover:scale-105 transition-transform duration-500"
+                        />
+                        <div className="absolute inset-0 bg-black/40 group-hover:bg-black/50 transition"></div>
+                        <div className="absolute bottom-6 left-6 text-white">
+                            <h3 className="text-xl font-bold">Deals</h3>
+                            <p className="mt-2 text-sm max-w-xs">
+                                Products guarantee and assured quality.
+                            </p>
+                            <button className="mt-4 bg-[#D7FF72] text-black text-sm px-4 py-2 rounded-full font-medium hover:bg-[#b5e65f] transition">
+                                Learn more →
+                            </button>
+                        </div>
+                    </div>
+
+                    {/* Card 3 */}
+                    <div className="relative rounded-2xl overflow-hidden shadow-lg group">
+                        <img
+                            src="/logis.jpg" 
                             alt="Logistic"
-                            className="w-20 h-20 mb-4"
+                            className="w-full h-[400px] object-cover group-hover:scale-105 transition-transform duration-500"
                         />
-                        <h3 className="font-semibold text-lg">Logistic</h3>
-                        <p className="text-gray-600 text-sm mt-2">
-                            Trouble-free agricultural products managed.
-                        </p>
+                        <div className="absolute inset-0 bg-black/40 group-hover:bg-black/50 transition"></div>
+                        <div className="absolute bottom-6 left-6 text-white">
+                            <h3 className="text-xl font-bold">Logistic</h3>
+                            <p className="mt-2 text-sm max-w-xs">
+                                Trouble-free agricultural products managed.
+                            </p>
+                            <button className="mt-4 bg-[#D7FF72] text-black text-sm px-4 py-2 rounded-full font-medium hover:bg-[#b5e65f] transition">
+                                Learn more →
+                            </button>
+                        </div>
                     </div>
                 </div>
             </section>
+
+
+
 
 
             <section className="px-6 py-20">
