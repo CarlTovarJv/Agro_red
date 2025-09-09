@@ -1,12 +1,12 @@
 "use client";
- 
+
 import { useState } from 'react';
 import type { ChangeEvent } from 'react';
- 
+
 interface Props {
   onNextStep: () => void;
 }
- 
+
 export default function ShippingDetailsForm({ onNextStep }: Props) {
   const [formData, setFormData] = useState({
     fullName: '',
@@ -18,7 +18,7 @@ export default function ShippingDetailsForm({ onNextStep }: Props) {
     zipCode: '',
     country: '',
   });
- 
+
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormData(prevState => ({
@@ -26,18 +26,19 @@ export default function ShippingDetailsForm({ onNextStep }: Props) {
       [name]: value,
     }));
   };
- 
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("Datos del formulario enviados:", formData);
+    // Guardar datos en localStorage
+    localStorage.setItem("shippingDetails", JSON.stringify(formData));
     onNextStep();
   };
- 
+
   return (
     <form onSubmit={handleSubmit} className="w-full p-8 bg-white rounded-lg shadow-md border border-gray-200">
       <h3 className="text-xl font-bold mb-6">Shipping Details</h3>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-4">
- 
+
         <label className="block">
           <span className="text-gray-700">Full Name</span>
           <input
@@ -50,7 +51,7 @@ export default function ShippingDetailsForm({ onNextStep }: Props) {
             onChange={handleInputChange}
           />
         </label>
- 
+
         <label className="block">
           <span className="text-gray-700">Last Name</span>
           <input
@@ -76,7 +77,7 @@ export default function ShippingDetailsForm({ onNextStep }: Props) {
             onChange={handleInputChange}
           />
         </label>
- 
+
         <label className="block md:col-span-2">
           <span className="text-gray-700">Address Line 2 (Optional)</span>
           <input
@@ -142,7 +143,7 @@ export default function ShippingDetailsForm({ onNextStep }: Props) {
           />
         </label>
       </div>
- 
+
       <div className="flex justify-end mt-8">
         <button
           type="submit"

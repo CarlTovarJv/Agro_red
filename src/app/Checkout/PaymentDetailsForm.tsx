@@ -35,11 +35,11 @@ export default function PaymentDetailsForm({ onNextStep, onPreviousStep }: Props
 
   const handleSubmit = (e: FormEvent): void => {
     e.preventDefault();
-    console.log("Datos de pago enviados:", formData);
+    // Guardar datos en localStorage con tipo
+    localStorage.setItem("paymentDetails", JSON.stringify({ ...formData, type: paymentMethod }));
     onNextStep();
   };
 
-  // Clase base para todos los inputs: borde gris oscuro al enfocar, halo gris, tamaño más grande
   const inputClass = "mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:outline-none focus:border-gray-600 focus:ring focus:ring-gray-600 focus:ring-opacity-50 px-3 py-2 text-lg";
 
   return (
@@ -70,41 +70,21 @@ export default function PaymentDetailsForm({ onNextStep, onPreviousStep }: Props
           <div className="space-y-4">
             <label className="block">
               <span className="text-gray-700">Card number</span>
-              <input 
-                type="text" 
-                name="cardNumber"
-                className={inputClass}
-                value={formData.cardNumber} 
-                onChange={handleInputChange}/>
+              <input type="text" name="cardNumber" className={inputClass} value={formData.cardNumber} onChange={handleInputChange}/>
             </label>
             <div className="grid grid-cols-2 gap-4">
               <label className="block">
                 <span className="text-gray-700">CVV</span>
-                <input 
-                  type="text" 
-                  name="cvv"
-                  className={inputClass}
-                  value={formData.cvv} 
-                  onChange={handleInputChange}/>
+                <input type="text" name="cvv" className={inputClass} value={formData.cvv} onChange={handleInputChange}/>
               </label>
               <label className="block">
                 <span className="text-gray-700">Expiration date</span>
-                <input 
-                  type="text" 
-                  name="expirationDate"
-                  className={inputClass}
-                  value={formData.expirationDate} 
-                  onChange={handleInputChange}/>
+                <input type="text" name="expirationDate" className={inputClass} value={formData.expirationDate} onChange={handleInputChange}/>
               </label>
             </div>
             <label className="block">
               <span className="text-gray-700">Name</span>
-              <input 
-                type="text" 
-                name="name"
-                className={inputClass}
-                value={formData.name} 
-                onChange={handleInputChange}/>
+              <input type="text" name="name" className={inputClass} value={formData.name} onChange={handleInputChange}/>
             </label>
           </div>
         )}
@@ -115,49 +95,29 @@ export default function PaymentDetailsForm({ onNextStep, onPreviousStep }: Props
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <label className="block">
                 <span className="text-gray-700">Bank</span>
-                <input 
-                  type="text" 
-                  name="bank"
-                  className={inputClass}
-                  value={formData.bank} 
-                  onChange={handleInputChange}/>
+                <input type="text" name="bank" className={inputClass} value={formData.bank} onChange={handleInputChange}/>
               </label>
               <label className="block">
                 <span className="text-gray-700">Account number</span>
-                <input 
-                  type="text" 
-                  name="accountNumber"
-                  className={inputClass}
-                  value={formData.accountNumber} 
-                  onChange={handleInputChange}/>
+                <input type="text" name="accountNumber" className={inputClass} value={formData.accountNumber} onChange={handleInputChange}/>
               </label>
               <label className="block md:col-span-2">
                 <span className="text-gray-700">Routing number</span>
-                <input 
-                  type="text" 
-                  name="routingNumber"
-                  className={inputClass}
-                  value={formData.routingNumber} 
-                  onChange={handleInputChange}/>
+                <input type="text" name="routingNumber" className={inputClass} value={formData.routingNumber} onChange={handleInputChange}/>
               </label>
             </div>
           </div>
         )}
 
         <div className="flex justify-between mt-8">
-          <button
-            type="button"
-            onClick={onPreviousStep}
-            className="px-6 py-3 border border-gray-300 text-gray-700 font-bold rounded-lg hover:bg-gray-100 transition-colors">
+          <button type="button" onClick={onPreviousStep} className="px-6 py-3 border border-gray-300 text-gray-700 font-bold rounded-lg hover:bg-gray-100 transition-colors">
             Previous
           </button>
-          <button
-            type="submit"
-            className="px-6 py-3 bg-[#55A605] text-white font-bold rounded-lg hover:bg-green-800 transition-colors">
+          <button type="submit" className="px-6 py-3 bg-[#55A605] text-white font-bold rounded-lg hover:bg-green-800 transition-colors">
             Next Step
           </button>
         </div>
       </form>
     </div>
   );
-}//no tocar
+}
