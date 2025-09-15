@@ -18,10 +18,10 @@ export default function PreNavbar() {
 
   const navLinks = [
     { name: "Home", href: "/" },
-    { name: "Agreemets", href: "/AgreementsSeller" },
-    { name: "Reviews", href: "/review" },
+    { name: "Agreements", href: "/AgreementsSeller" },
+    { name: "Dashboard", href: "/dashboard" },
+    { name: "MyOrders", href: "/ordermanagment" },
     { name: "Products", href: "/Products" },
-    { name: "MyOrders", href: "/Myproducts" },
     { name: "AboutUs", href: "/Aboutus" },
     { name: "ContactUs", href: "/Contactus" },
   ];
@@ -72,7 +72,7 @@ export default function PreNavbar() {
         {/* Right: Premium + Cart + User */}
         <div className="flex items-center gap-4">
           {/* Get Premium */}
-          <Link href="/Suscriptionsbuyers">
+          <Link href="/SubscriptionsSellerr">
             <button className="px-4 py-2 bg-[#55A605] text-white text-sm font-semibold rounded-full shadow-md hover:bg-green-800 transition-colors duration-300 cursor-pointer">
               Get Premium
             </button>

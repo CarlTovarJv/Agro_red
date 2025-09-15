@@ -1,30 +1,37 @@
 "use client";
 
 import { usePathname } from "next/navigation";
-import { useUser } from "@clerk/nextjs"; // importamos el hook de Clerk
-import Header from './pre-navbar';
-import Navbar from './navbar';
+import { useUser } from "@clerk/nextjs";
+import { useEffect, useState } from "react";
+import Navbar from "./navbar";
+import NavbarBuyer from "./pre-navbar";
+import NavbarSeller from "./Navbar-seller";
 
 export default function HeaderWrapper() {
-    const pathname = usePathname();
-    const { isSignedIn } = useUser(); // obtenemos si el usuario está logeado
+  const pathname = usePathname();
+  const { isSignedIn } = useUser();
+  const [role, setRole] = useState<string | null>(null);
 
-    if (!pathname) return null;
+  useEffect(() => {
 
-    // No mostrar nada en login/signup/select account
-    if (
-        pathname.startsWith("/login") ||
-        pathname.startsWith("/signup") ||
-        pathname.startsWith("/SelectAccount")
-    ) {
-        return null;
-    }
+    const storedRole = localStorage.getItem("userRole");
+    setRole(storedRole);
+  }, [pathname]); 
 
-    return (
-        <>
-            {isSignedIn ? <Header /> : <Navbar />}
-        </>
-    );
+  if (!pathname) return null;
+
+  if (
+    pathname.startsWith("/login") ||
+    pathname.startsWith("/signup") ||
+    pathname.startsWith("/SelectAccount")
+  ) {
+    return null;
+  }
+
+  if (!isSignedIn) return <Navbar />;
+
+  if (role === "buyer") return <NavbarBuyer />;
+  if (role === "seller") return <NavbarSeller />;
+
+  return <Navbar />; 
 }
-
-

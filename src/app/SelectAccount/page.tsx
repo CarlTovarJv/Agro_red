@@ -4,18 +4,17 @@ import { useRouter } from "next/navigation";
 import { Sprout, ShoppingBag, ChevronRight } from "lucide-react";
 import React from "react";
 
-
 export default function SelectAccount() {
     const router = useRouter();
 
     const go = (role: "buyer" | "seller") => {
-        // Adjust target routes as needed:
-        router.push(`/signup?role=${role}`);
+        // ⚡ Mantiene tu lógica original: guarda rol y redirige al home
+        localStorage.setItem("userRole", role);
+        router.push("/");
     };
 
     return (
         <main className="flex min-h-screen w-screen bg-neutral-50 text-neutral-900 flex-col items-center justify-center px-4">
-
             {/* Header */}
             <section className="flex flex-col items-center py-10 px-6">
                 <div className="max-w-2xl w-full text-center">
@@ -54,7 +53,10 @@ export default function SelectAccount() {
                         <div className="mt-6 flex items-center justify-between">
                             <ul className="space-y-1 text-sm text-neutral-700">
                                 <li className="flex items-center gap-2">
-                                    <span className="inline-block h-1.5 w-1.5 rounded-full" style={{ background: "var(--agr-green, #16a34a)" }} />
+                                    <span
+                                        className="inline-block h-1.5 w-1.5 rounded-full"
+                                        style={{ background: "var(--agr-green, #16a34a)" }}
+                                    />
                                     Track orders & reviews
                                 </li>
                             </ul>
@@ -86,7 +88,10 @@ export default function SelectAccount() {
                         <div className="mt-6 flex items-center justify-between">
                             <ul className="space-y-1 text-sm text-neutral-700">
                                 <li className="flex items-center gap-2">
-                                    <span className="inline-block h-1.5 w-1.5 rounded-full" style={{ background: "var(--agr-green, #16a34a)" }} />
+                                    <span
+                                        className="inline-block h-1.5 w-1.5 rounded-full"
+                                        style={{ background: "var(--agr-green, #16a34a)" }}
+                                    />
                                     Product care certification ready
                                 </li>
                             </ul>
@@ -103,4 +108,3 @@ export default function SelectAccount() {
         </main>
     );
 }
-
