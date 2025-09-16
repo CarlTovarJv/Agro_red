@@ -23,7 +23,7 @@ export default function PreNavbar() {
     { name: "MyOrders", href: "/ordermanagment" },
     { name: "Products", href: "/Products" },
     { name: "AboutUs", href: "/Aboutus" },
-    { name: "ContactUs", href: "/Contactus" },
+    { name: "Upload products", href: "/Upload_products" },
   ];
 
   return (

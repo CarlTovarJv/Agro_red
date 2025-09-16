@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useRouter } from "next/navigation"; // 👈 para redirección
 import { FaSearch } from "react-icons/fa";
 
 type Product = {
@@ -117,6 +118,7 @@ export default function ProductsPageClient() {
   const [search, setSearch] = useState("");
   const [selectedMeasures, setSelectedMeasures] = useState<{ [key: number]: string }>({});
   const [quantities, setQuantities] = useState<{ [key: number]: number }>({});
+  const router = useRouter();
 
   const filteredProducts = products.filter((p) =>
     p.product_name.toLowerCase().includes(search.toLowerCase())
@@ -140,6 +142,7 @@ export default function ProductsPageClient() {
   };
 
   const handleBuy = (product: Product) => {
+    // 👇 aquí ya NO redirige nunca, solo carrito
     const measure = selectedMeasures[product.id] || product.measures[0].name;
     const quantity = quantities[product.id] || 1;
     const price = product.measures.find((m) => m.name === measure)?.price || 0;
@@ -169,6 +172,12 @@ export default function ProductsPageClient() {
     alert(`${product.product_name} added to cart!`);
   };
 
+  const handleRedirect = (product: Product) => {
+    if (product.product_name === "Tomatoes") {
+      router.push("/productdetail");
+    }
+  };
+
   return (
     <div className="max-w-6xl mx-auto px-4 py-6">
       {/* Search Bar */}
@@ -188,7 +197,8 @@ export default function ProductsPageClient() {
         {filteredProducts.map((product) => (
           <div
             key={product.id}
-            className="bg-white rounded-2xl shadow-md hover:shadow-lg transition-transform hover:scale-105 overflow-hidden flex flex-col"
+            className="bg-white rounded-2xl shadow-md hover:shadow-lg transition-transform hover:scale-105 overflow-hidden flex flex-col cursor-pointer"
+            onClick={() => handleRedirect(product)} // 👈 redirige si es Tomatoes
           >
             <img
               src={product.image || "/default-product.png"}
@@ -209,6 +219,7 @@ export default function ProductsPageClient() {
                   value={selectedMeasures[product.id] || product.measures[0].name}
                   onChange={(e) => handleMeasureChange(product.id, e.target.value)}
                   className="flex-1 border border-gray-300 rounded-lg px-3 py-1 text-gray-700 focus:outline-none focus:ring-2 focus:ring-[#55A605]"
+                  onClick={(e) => e.stopPropagation()} // 👈 evita que abra redirección
                 >
                   {product.measures.map((measure) => (
                     <option key={measure.name} value={measure.name}>
@@ -225,6 +236,7 @@ export default function ProductsPageClient() {
                   }
                   className="w-20 border border-gray-300 rounded-lg px-3 py-1 text-gray-700 focus:outline-none focus:ring-2 focus:ring-[#55A605]"
                   min={1}
+                  onClick={(e) => e.stopPropagation()} // 👈 evita que redirija al escribir
                 />
               </div>
 
@@ -233,7 +245,10 @@ export default function ProductsPageClient() {
                   ${getPrice(product)}
                 </span>
                 <button
-                  onClick={() => handleBuy(product)}
+                  onClick={(e) => {
+                    e.stopPropagation(); // 👈 evita que redirija cuando das Buy
+                    handleBuy(product);
+                  }}
                   className="bg-[#55A605] text-white px-4 py-1 rounded-full text-sm hover:bg-green-700 transition-colors"
                 >
                   Buy

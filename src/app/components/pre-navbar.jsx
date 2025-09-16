@@ -18,7 +18,7 @@ export default function PreNavbar() {
 
   const navLinks = [
     { name: "Home", href: "/" },
-    { name: "Agreemets", href: "/AgreementsSeller" },
+    { name: "Agreemets", href: "/AgreementsBuyer" },
     { name: "Reviews", href: "/review" },
     { name: "Products", href: "/Products" },
     { name: "MyOrders", href: "/Myproducts" },

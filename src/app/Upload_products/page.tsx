@@ -8,7 +8,7 @@ export default function UploadProduct() {
     price: "",
     stock: "",
     category: "",
-    photos: [],
+    photos: [] as File[],
   });
 
   const handleChange = (
@@ -22,15 +22,21 @@ export default function UploadProduct() {
 
   const handlePhotoUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
-      setProduct({ ...product, photos: Array.from(e.target.files) });
+      setProduct({
+        ...product,
+        photos: [...product.photos, ...Array.from(e.target.files)],
+      });
     }
   };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     console.log(product);
-    alert("Product upload succesfully 🚀");
+    alert("Product upload successfully");
   };
+
+  const inputStyle =
+    "mt-1 block w-full rounded-md border border-gray-600 shadow-sm px-3 py-2 text-lg focus:outline-none focus:border-gray-400 focus:ring focus:ring-gray-600 focus:ring-opacity-50";
 
   return (
     <div className="flex min-h-screen bg-gray-100">
@@ -43,6 +49,7 @@ export default function UploadProduct() {
           onSubmit={handleSubmit}
           className="grid grid-cols-1 md:grid-cols-3 gap-10"
         >
+          {/* --- LEFT FORM --- */}
           <div className="md:col-span-2 space-y-6">
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">
@@ -53,7 +60,7 @@ export default function UploadProduct() {
                 name="name"
                 value={product.name}
                 onChange={handleChange}
-                className="w-full h-14 px-5 py-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-black"
+                className={inputStyle}
                 placeholder="Enter Product name"
                 required
               />
@@ -67,7 +74,7 @@ export default function UploadProduct() {
                 name="description"
                 value={product.description}
                 onChange={handleChange}
-                className="w-full h-20 px-5 py-3 border rounded-md focus:outline-none focus:ring-3 focus:ring-black"
+                className={inputStyle + " h-24"}
                 placeholder="Enter description"
                 required
               />
@@ -83,7 +90,7 @@ export default function UploadProduct() {
                   name="price"
                   value={product.price}
                   onChange={handleChange}
-                  className="w-full h-14 px-5 py-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-black"
+                  className={inputStyle}
                   placeholder="$"
                   required
                 />
@@ -97,7 +104,7 @@ export default function UploadProduct() {
                   name="stock"
                   value={product.stock}
                   onChange={handleChange}
-                  className="w-full h-14 px-5 py-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-black"
+                  className={inputStyle}
                   placeholder="0"
                   required
                 />
@@ -112,7 +119,7 @@ export default function UploadProduct() {
                 name="category"
                 value={product.category}
                 onChange={handleChange}
-                className="w-full h-14 px-5 py-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-black"
+                className={inputStyle}
                 required
               >
                 <option value="">Select category</option>
@@ -126,19 +133,20 @@ export default function UploadProduct() {
             <div>
               <button
                 type="submit"
-                className="w-full h-14 bg-[#55A605] text-white rounded-md "
+                className="w-full h-14 bg-[#55A605] text-white rounded-md text-lg font-medium"
               >
                 Upload
               </button>
             </div>
           </div>
 
-          <div className="w-full flex flex-col items-center justify-center border-2 border-dashed border-gray-400 rounded-xl p-6 h-full">
-            <p className="text-2xl mb-2 text-center">🍑 Add photo</p>
+          {/* --- RIGHT UPLOAD + PREVIEW --- */}
+          <div className="w-full flex flex-col items-center justify-start border-2 border-dashed border-gray-400 rounded-xl p-6 h-full">
+            <p className="text-2xl mb-2 text-center">Add photo</p>
             <p className="text-xs text-gray-500 mb-4 text-center">
               Upload photo of your products
             </p>
-            <label className="bg-[#55A605] text-white px-2 py-3 rounded cursor-pointer text-center w-full max-w-28">
+            <label className="bg-[#55A605] text-white px-2 py-3 rounded cursor-pointer text-center w-full max-w-28 mb-4">
               Add photo
               <input
                 type="file"
@@ -147,6 +155,18 @@ export default function UploadProduct() {
                 onChange={handlePhotoUpload}
               />
             </label>
+
+            {/* PREVIEW */}
+            <div className="grid grid-cols-1 gap-4 w-full">
+              {product.photos.map((file, idx) => (
+                <img
+                  key={idx}
+                  src={URL.createObjectURL(file)}
+                  alt={`preview-${idx}`}
+                  className="w-full h-60 object-cover rounded-lg shadow"
+                />
+              ))}
+            </div>
           </div>
         </form>
       </div>
