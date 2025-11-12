@@ -1,0 +1,78 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+model roles {
+  role_id   Int     @id @default(autoincrement())
+  role_name String  @unique
+  users     users[]
+}
+
+model users {
+  user_id        Int      @id @default(autoincrement())
+  first_name     String
+  last_name      String
+  dui            String   @unique
+  email          String   @unique
+  password       String
+  accept_terms   Boolean
+  accept_privacy Boolean
+  role_id        Int
+  roles          roles    @relation(fields: [role_id], references: [role_id])
+  products       products[] @relation("SellerProducts")
+  orders         orders[]   @relation("UserOrders")
+}
+
+model products {
+  product_id    Int             @id @default(autoincrement())
+  product_name  String
+  price         Decimal
+  image_url     String?         
+  created_at    DateTime        @default(now())
+  updated_at    DateTime        @updatedAt
+  seller_id     Int
+
+  order_details order_details[]
+  seller        users           @relation("SellerProducts", fields: [seller_id], references: [user_id])
+
+  @@index([seller_id])
+}
+
+
+model orders {
+  order_id      Int             @id @default(autoincrement())
+  user_id       Int
+  order_date    DateTime?       @default(now())
+  total         Decimal
+  status        order_status?   @default(Pending)
+  order_details order_details[]
+  user          users           @relation("UserOrders", fields: [user_id], references: [user_id])
+
+  @@index([user_id])
+}
+
+model order_details {
+  order_detail_id Int      @id @default(autoincrement())
+  order_id        Int
+  product_id      Int
+  quantity        Int      @default(1)
+  price           Decimal
+  order           orders   @relation(fields: [order_id], references: [order_id])
+  product         products @relation(fields: [product_id], references: [product_id])
+
+  @@index([order_id])
+  @@index([product_id])
+}//Database
+
+enum order_status {
+  Pending
+  Paid
+  Shipped
+  Delivered
+  Cancelled
+}
