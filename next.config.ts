@@ -8,3 +8,4 @@ module.exports = {
     domains: ['tudominio.com'],
      },
 },
+
