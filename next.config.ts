@@ -7,4 +7,4 @@ module.exports = {
   images: {
     domains: ['tudominio.com'],
      },
-}
+},
