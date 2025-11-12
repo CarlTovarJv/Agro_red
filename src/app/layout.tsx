@@ -13,6 +13,13 @@ const geistMono = Geist_Mono({ variable: "--font-geist-mono", subsets: ["latin"]
 interface RootLayoutProps {
   children: React.ReactNode;
 }
+export const metadata = {
+  title: "Agrored",
+  description: "Plataforma de acuerdos para vendedores",
+  icons: {
+    icon: "/AgroC.svg", 
+  },
+};
 
 export default function RootLayout({ children }: RootLayoutProps) {
   return (
